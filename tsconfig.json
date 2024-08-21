@@ -1,0 +1,22 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "src/app/layout copy",
+    "src/app/_layout copy",
+    "src/context/headerContext.tsx",
+    "src/app/layout++",
+    "src/app/screens/_layout.tssx",
+    "src/app/screens/home/indexatsx",
+    "src/components/svg/LogoSVGICon.jsx"
+  ]
+}
