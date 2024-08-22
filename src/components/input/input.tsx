@@ -116,19 +116,20 @@ export const OneDigiteInput = forwardRef((props, ref) => {
 
 type propsTextarea = {
     title: string,
-    place: string
+    place: string,
+    onChangeText: any 
+    value: string
 }
 
-export const  Textarea = ({title, place}: propsTextarea) => {
-    const [text, setText] = useState("")
+export const  Textarea = ({title, place, onChangeText, value}: propsTextarea) => {
     return(
         <View>
             <Text style={Styles.childText}>{title}</Text>
             <ScrollView style={Styles.textaarea}>
                 <TextInput
                 multiline
-                value={text}
-                onChangeText={(text) => setText(text)}
+                value={value}
+                onChangeText={onChangeText}
                 style={Styles.area} placeholder={place}
                 />
             </ScrollView>

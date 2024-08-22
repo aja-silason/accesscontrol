@@ -14,6 +14,7 @@ import { useAuth } from "@/context/AuthContext";
 import axios from "axios";
 import { API_URL } from "@/utils/server/enpoint";
 import { routing } from "@/services/Navegation";
+import { Loading } from "@/components/loading";
 
 
 export default function Page() {
@@ -21,9 +22,8 @@ export default function Page() {
   const [email, setEmail] =useState('');
   const [password, setPassword] =useState('');
   const [textBtn, setTextBtn] = useState("Entrar");
-  const [isVisible, setIsVisible] = useState(false);
-  const {user, login, logout} = useAuth();
 
+  const {user, login, isLoading} = useAuth();
 
   useEffect(()=> {
 
@@ -35,24 +35,12 @@ export default function Page() {
           routing.handleRouteHomeNonBackAgain();
         } else if(user?.login?.role?.role == "B") {
           routing.handleRouterHomeNoBack();
-          console.log("Lock at me1", user?.login?.role?.role)
         } else if(user == null){
           null
-          console.log("Aqui")
         }
         return
     }
   }, [user])
-
-
-  const showModal = () => {
-    
-      setIsVisible(true);
-  };
-
-  const hideModal = () => {
-      setIsVisible(false);
-  };
 
 
   const handleClick = async () => {
@@ -62,13 +50,12 @@ export default function Page() {
   
 
   return (
-    <ModalContext.Provider value={{ isVisible, showModal }}>
 
-      <ScrollView style={{backgroundColor: "#fff"}}>
     <View style={Style.container}>
       
       <Header/>
 
+      <ScrollView style={{backgroundColor: "#fff", width: "100%"}} showsVerticalScrollIndicator={false}>
       <View style={Style.loginData}>
         
         <View>
@@ -85,16 +72,18 @@ export default function Page() {
             <InputContainer.Field>Palavra passe</InputContainer.Field>
             <InputContainer.Input place="********" secureText={true} onChangeText={(password: any) => setPassword(password)} value={password}/>
           </InputContainer>
-          <Button text={textBtn} onClick={handleClick}/>
+          {
+          isLoading?  <Button text={<Loading/>} onClick={handleClick} disabled={isLoading}/>:   <Button text={textBtn} onClick={handleClick} disabled={isLoading}/>
+          }
+          
           <View style={Style.madein}>
             <MadeInAngolaSVG/>
           </View>
         </View>
 
       </View>
-    </View>
       </ScrollView>
-    </ModalContext.Provider>
+    </View>
   );
 }
 

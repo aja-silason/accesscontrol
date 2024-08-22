@@ -13,20 +13,18 @@ export const useGetDatas = (endpoint: string) => {
     useEffect(() => {
         getData();
     }, [])
-
-    const authToken = `Bearer ${user.authorizationToken}`
     
     const getData = async () => {
         try {
             const { data } = await axios.get(`${API_URL}${endpoint}`, {
                 headers: {
-                Authorization: `Bearer ${user.authorizationToken}`
+                Authorization: `Bearer ${user?.authorizationToken}`
                 }
             })
             setdata(data)
 
         } catch (error) {
-            console.log("Epah ta mal", error)
+            console.log("Epah ta mal isso aqui", error)
         }
 
     }

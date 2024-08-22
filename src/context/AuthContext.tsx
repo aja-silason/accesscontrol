@@ -1,21 +1,20 @@
 // context/AuthContext.tsx
 import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useLogin } from '@/hooks/useLogind';
 import axios from 'axios';
 import { API_URL } from '@/utils/server/enpoint';
 import { Alert } from 'react-native';
-import { routing } from '@/services/Navegation';
-
-type User = {
-  email: string;
-  // accessLevel: string;
-}
 
 type AuthContextProps = {
   user: any
-  login: (email: string, accessLevel: string) => Promise<void>;
-  logout: () => Promise<void>;
+  login: (email: string, password: string) => Promise<void>,
+  isLoading: any,
+  logout: () => Promise<void>,
+}
+
+type dataAccess = {
+  telephone: string | number,
+  password: string | number,
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
@@ -23,51 +22,59 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<any>(null);
   const [textBtn, setTextBtn] = useState("Entrar");
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const login = async (email: any, password: any) => {
 
-    console.log("Opahh");
-    console.log("", email, password)
-
-    const payload = {
-      telephone: email,
-      password: password
-    }
+  
 
     try {
-      setTextBtn("Processando...")
-      
-      const {data, status} = await axios.post(`${API_URL}user/login`, payload);
-      console.log(data);
 
-      if(data.message){
-        Alert.alert("Aviso", data.message); 
+      const payload: dataAccess = {
+        telephone: email,
+        password: password
       }
-      setTextBtn(`Logado.`);
+
+    const isAccess: Array<keyof dataAccess> = ['password', 'telephone'];
+    for(const key of isAccess) {
+        if(payload[key] === "" || payload[key] == undefined || payload[key] == " " ){
+          return Alert.alert("Aviso", "Dados incorrectos", [
+            {
+              text: "Tentar novamente",
+              onPress: () => setIsLoading(false),
+            }
+          ]);
+        }
+    }
+
+      console.log("user data: ", payload);
+
+      setIsLoading(true);
+      
+      const {data} = await axios.post(`${API_URL}user/login`, payload);
+
+      if(data?.response?.status == 400){
+        Alert.alert("Aviso", "Acesso não permitido"); 
+      }
+      console.log(data);
       const user = data;
       await AsyncStorage.setItem('user', JSON.stringify(user));
       setUser(user);
       
     } catch (error) {
-      console.log(error);
+      console.log("BBbnnn", error);
+      Alert.alert("Aviso", "Acesso não permitido"); 
+      setIsLoading(false);
+    } finally{
+      setIsLoading(false);
     }
 
-
-    // router.replace("./screens/home");
-    // setLink("./screens/");
-
 }
-
-  // async (email: string, accessLevel: string) => {
-  //   const user = { email, accessLevel };
-  //   await AsyncStorage.setItem('user', JSON.stringify(user));
-  //   setUser(user);
-  // };
 
   const logout = async () => {
     await AsyncStorage.removeItem('user');
     setUser(null);
-    // routing.handleRouteLogin();
   };
 
   useEffect(() => {
@@ -81,7 +88,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, isLoading, logout }}>
       {children}
     </AuthContext.Provider>
   );

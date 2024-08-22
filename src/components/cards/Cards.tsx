@@ -242,18 +242,22 @@ export const RadioCards = ({step}:RadioCardsProps) => {
     )
 }
 
+type entranceAndOuts = {
+    entrance: number,
+    out: number,
+}
 
-export const UniCard = () => {
+export const UniCard = ({entrance, out}: entranceAndOuts) => {
     return (
         <View style={Styles.unicardContainer}>
             <View style={Styles.uniCard}>
                 <Text style={Styles.ptext}>Entradas</Text>
-                <Text style={Styles.pnumber}>4</Text>
+                <Text style={Styles.pnumber}>{entrance}</Text>
             </View>
             <View style={Styles.uniCardr}></View>
             <View style={Styles.uniCard}>
                 <Text style={Styles.ptext}>Saidas</Text>
-                <Text style={Styles.pnumber}>4</Text>
+                <Text style={Styles.pnumber}>{out}</Text>
             </View>
         </View>
     )

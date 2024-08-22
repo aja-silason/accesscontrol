@@ -2,19 +2,21 @@ import { TouchableOpacity, View, Text } from "react-native"
 import { Styles } from "./Styles"
 import { ArrowRight } from "../svg/ArrowIconSvg";
 import CautionSvg from "../svg/CautionSvg";
+import { ElementType } from "react";
 
 type buttonProp = {
-    text: string,
+    text: string | any,
     styling?: any,
     onClick: () => void,
     link?: string,
+    disabled?: boolean
 }
 
-export const Button = ({text, onClick, link = ""}: buttonProp) => {
+export const Button = ({text, onClick, link = "", disabled}: buttonProp) => {
     return (
         <View style={Styles.styilg}>
             <TouchableOpacity activeOpacity={.8} onPress={onClick} 
-            style={Styles.btn}>
+            style={Styles.btn} disabled={disabled}>
                 <Text style={Styles.btnText}>{text}</Text>
             </TouchableOpacity>
         </View>

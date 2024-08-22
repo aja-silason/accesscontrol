@@ -30,17 +30,18 @@ export default function Home(){
                     <Text style={Styles.p}>Bem Vindo</Text>
                 </View>
                 <View style={Styles.viewlist}>
-                    <Text style={Styles.title}>Pumangol</Text>
+                    <Text style={Styles.title}>{user?.login?.plataform?.plataform}</Text>
                     <View style={Styles.details}>
                         <UserCicleSvg/>
-                        <Text style={Styles.p}>Anania Augusto</Text>
+                        <Text style={Styles.p}>{user?.login?.name} {user?.login?.surname}</Text>
                     </View>
                     <View style={Styles.details}>
                         <MapSvg/>
-                        <Text style={Styles.p}>Viana, Jacinto Tchipa</Text>
+                        <Text style={Styles.p}>{user?.login?.plataform?.adress}</Text>
                     </View>
+
                     <View style={Styles.viewcard}>
-                        <UniCard/>
+                        <UniCard entrance={0} out={0}/>
                     </View>
 
                     <View style={Styles.cardsDetails}>

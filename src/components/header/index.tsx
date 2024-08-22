@@ -38,7 +38,7 @@ export function Header() {
                 </TouchableOpacity>
             </View>
 
-            <Modal usename={`${user.login.name} ${user.login.surname}`} role="Engenheiro Informático" visible={showModal === MODAL.HEADE  } onClose={() => setShowModal(MODAL.NONE)} logOut={log}>
+            <Modal usename={`${user?.login?.name} ${user?.login?.surname}`} role={user?.login?.role?.role} visible={showModal === MODAL.HEADE  } onClose={() => setShowModal(MODAL.NONE)} logOut={log}>
                 <View style={Style.modaStyle}>
                     <TouchableOpacity onPress={() => setShowModal(MODAL.NONE)}>
                         <View style={Style.btnModalClose}></View>
