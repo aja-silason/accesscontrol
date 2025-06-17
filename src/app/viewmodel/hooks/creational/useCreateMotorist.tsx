@@ -102,6 +102,8 @@ export const useCreateMotoristEntrance = () => {
                     }
                 ]) 
             }
+
+            setIsLoading(false);
     
             } catch (error: any) {
             if(error?.response?.status === 404){
@@ -109,17 +111,10 @@ export const useCreateMotoristEntrance = () => {
 
                 setText(`${ error?.response?.data?.message == "Invalid credencial, driver not found in the system" ? "Credencial inválida, motorista não encontrado no sistema" : "Credencial inválida"}`);
 
-                // Alert.alert("Aviso", "Dados não encontrados", [
-                //   {
-                //     text: "Tentar Novamente",
-                //     onPress: () => setCodeDriver("")
-                //   }
-                // ]);
+                setIsLoading(false);
 
                 return;
-            }
-            } finally {
-                setIsLoading(false);
+              }
             }
         }
         getDriver();

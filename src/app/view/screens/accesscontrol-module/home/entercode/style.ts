@@ -21,6 +21,12 @@ export const style = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
+    textBoldAuth: {
+        fontWeight: "500",
+        fontSize: 18,
+        color: "#020100",
+        marginVertical: 5
+    },
     border: {
         height: 2,
         width: 100,

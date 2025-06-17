@@ -21,6 +21,7 @@ export const useCreatevehicleEntrance = () => {
   const [codeVehicle, setCodeVehicle] = useState<string>()
 
   const [text, setText] = useState<string>("");
+  const [codeDriver, setCodeDriver] = useState<string>("");
   
   const [isLoading, setIsLoading] = useState<boolean>(false);
   
@@ -59,6 +60,17 @@ export const useCreatevehicleEntrance = () => {
       const newCode = valuesVehicle.map((item: any) => item.value).join('');
       return newCode.length > 4 ? setNewCode(newCode) : undefined;
     };
+
+    useEffect(() => {
+      
+      (async () => {
+        const code = await AsyncStorage.getItem("codedriver");
+        const parsedCode = code && JSON.parse(code);
+        setCodeDriver(parsedCode);
+
+      } )()
+
+    }, [])
   
     useEffect(() => {
       const newVehicleCode = calculateCodeVehicle();
@@ -79,45 +91,46 @@ export const useCreatevehicleEntrance = () => {
   
           const getVehicle = async () => {
           const payload = {
-            VehicleCredential: codeVehicle,
+            vehicleCredential: codeVehicle,
+            driverCredential: codeDriver,
             plataformId: user?.login?.plataformId,
             operatorId: user?.login?.id,
           }
   
-    
            try {
-    
-             const { data } = await axios.post(`${API_URL}check-Vehicle`, payload,
+
+            setIsLoading(true)
+
+            console.log("Aqui", payload)
+
+             const { data } = await axios.post(`${API_URL}check-transport`, payload,
               {
                 headers: {
                 Authorization: `Bearer ${user.authorizationToken}`
                 }
             });
+
+            console.log("Aqui", payload)
     
-            if(data?.text?.stepForward === true){
-              return Alert.alert("Aviso", "Veículo autorizado", [
-              {
-                  text: "Proxima etapa",
-                      onPress: () => getDataVehicle(data)
-                  }
-              ]) 
-          }
+            if(data?.text?.status === 200){
+                return Alert.alert("Aviso", "Veículo autorizado", [
+                {
+                    text: "Proxima etapa",
+                        onPress: () => getDataVehicle(data)
+                    }
+                ]) 
+            }
+            setIsLoading(false)
     
           } catch (error: any) {
             if(error?.response?.status === 404){
               setWrong("error");
-  
+
               setText(`${ error?.response?.data?.message == "Invalid credencial, vehicle not found in the system" ? "Credencial inválida, veículo não encontrado no sistema" : error?.response?.data?.message == "Alert, vehicle does not match with driver distribuitor" ? "veículo não corresponde ao distribuidor do motorista" : "Credencial inválida"}`);
+              setIsLoading(false)
   
-            //   Alert.alert("Aviso", "Dados não encontrados", [
-            //     {
-            //       text: "Tentar Novamente",
-            //       onPress: () => setCodeVehicle("")
-            //     }
-            //   ]);
               return
              }
-            // console.log("Xihh deu erro: ", error);
   
           }
         }
