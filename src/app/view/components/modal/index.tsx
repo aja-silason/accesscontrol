@@ -35,12 +35,7 @@ export function Modal({
 
   return (
     <RNModal transparent statusBarTranslucent={true} {...rest}>
-        <BlurView
-        style={Styles.modalSize}
-        intensity={0.5}
-        tint="systemThickMaterialDark"
-        experimentalBlurMethod="dimezisBlurView"
-      >
+        
         <View style={Styles.container}>
           <View>
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -98,7 +93,6 @@ export function Modal({
             </ScrollView>
           </View>
         </View>
-        </BlurView>
     </RNModal>
   )
 }

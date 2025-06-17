@@ -31,7 +31,7 @@ export const Styles = StyleSheet.create({
         padding: 0
     },
     searchView: {
-        width: "100%",
+        width: "95%",
         borderWidth: 1,
         flexDirection: "row",
         alignItems: "center",
@@ -42,6 +42,7 @@ export const Styles = StyleSheet.create({
     },
     searchInput: {
         height: 44,
+        width: "100%"
     },
     childText: {
         fontSize: 15,

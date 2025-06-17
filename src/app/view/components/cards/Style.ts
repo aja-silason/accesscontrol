@@ -18,12 +18,12 @@ export const Styles = StyleSheet.create({
         backgroundColor: "#F4F5F8",
         borderColor: "#fff0bf",
         borderWidth: 1,
-        width: "100%",
+        width: "95%",
         borderRadius: 8,
         flexDirection: "row",
         gap: 10,
         padding: 15,
-        marginBottom: 15
+        marginBottom: 15,
     },
     innerContainerList: {
         justifyContent: "space-between",

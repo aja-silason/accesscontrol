@@ -13,11 +13,11 @@ export default function Navigation () {
         <stack.Navigator>
             {
                 user?.login?.role?.role == "A" ? (
-                    <stack.Screen name="accessControll" component={UserAceessControllTabs}/>
-                ) : user?.login?.role?.role == "A" ? (
-                    <stack.Screen name="login" component={LoginScreen}/>
+                    <stack.Screen name="accessControll" component={UserAceessControllTabs} options={{headerShown: false, statusBarStyle: "dark", headerTransparent: true}}/>
+                ) : user?.login?.role?.role == "B" ? (
+                    <stack.Screen name="login" component={LoginScreen} options={{headerShown: false, statusBarStyle: "dark", headerTransparent: true}}/>
                 ) : (
-                    <stack.Screen name="login" component={LoginScreen}/>
+                    <stack.Screen name="login" component={LoginScreen} options={{headerShown: false, statusBarStyle: "dark", headerTransparent: true}}/>
                 )
             }
         </stack.Navigator>
