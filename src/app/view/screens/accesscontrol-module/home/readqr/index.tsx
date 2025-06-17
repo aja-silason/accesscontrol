@@ -247,6 +247,18 @@ export default function QRread(){
                             </CameraView>
                             <Text style={style.textInfo}>QR do Veiculo</Text>
 
+                             {
+                                isLoading2 ? (
+                                    <View style={{marginTop: 10}}>
+                                        <LoadingCode />
+                                    </View>
+                                ) : (
+                                    <View style={{marginTop: 20, alignItems: "center"}}>
+                                    <Text style={{color: "red", textAlign: "center", fontSize: 13, fontWeight: 500}}>{text2}</Text>
+                                    </View>
+                                )  
+                            }
+
                             </View>
                         </View>
                     </ContainerLessMenuLessGradiente>
