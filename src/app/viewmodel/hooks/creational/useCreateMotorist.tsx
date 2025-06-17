@@ -4,6 +4,7 @@ import { API_URL } from "../../utils/server/enpoint";
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type InputState = {
     value: string;
@@ -81,7 +82,6 @@ export const useCreateMotoristEntrance = () => {
             plataformId: user?.login?.plataformId,
             operatorId: user?.login?.id,
             }
-
     
             try {
               
@@ -98,7 +98,7 @@ export const useCreateMotoristEntrance = () => {
                 return Alert.alert("Aviso", "Motorista autorizado", [
                 {
                     text: "Proxima etapa",
-                        onPress: () => navigate?.navigate("entercodevehicle")
+                        onPress: () => getDataDriver()
                     }
                 ]) 
             }
@@ -107,7 +107,7 @@ export const useCreateMotoristEntrance = () => {
             if(error?.response?.status === 404){
                 setWrong("error");
 
-                setText(`${ error?.response?.data?.message == "Invalid credencial, vehicle not found in the system" ? "Credencial inválida, veículo não encontrado no sistema" : error?.response?.data?.message == "Alert, vehicle does not match with driver distribuitor" ? "veículo não corresponde ao distribuidor do motorista" : "Credencial inválida"}`);
+                setText(`${ error?.response?.data?.message == "Invalid credencial, driver not found in the system" ? "Credencial inválida, motorista não encontrado no sistema" : "Credencial inválida"}`);
 
                 // Alert.alert("Aviso", "Dados não encontrados", [
                 //   {
@@ -125,6 +125,14 @@ export const useCreateMotoristEntrance = () => {
         getDriver();
         }
     }, [driverCredential])
+
+     const getDataDriver = async () => {
+      setCodeDriver("");
+      await AsyncStorage.setItem('codedriver', JSON.stringify(codeDriver));
+
+      navigate?.navigate("entercodevehicle")
+
+    }
 
     return { valuesDriver, handleInputChangeDriver, setFocusedIndexDriver, inputRefsDriver, isLoading, text, wrong }
 

@@ -4,6 +4,7 @@ import { API_URL } from "../../utils/server/enpoint";
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type InputState = {
     value: string;
@@ -18,6 +19,12 @@ export const useCreatevehicleEntrance = () => {
   const [focusedIndexVehicle, setFocusedIndexVehicle] = useState(0);
   
   const [codeVehicle, setCodeVehicle] = useState<string>()
+
+  const [text, setText] = useState<string>("");
+  
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  
+  const [wrong, setWrong] = useState<string>("");
 
   
   const {user} = useAuth();
@@ -40,9 +47,17 @@ export const useCreatevehicleEntrance = () => {
       }
   };
 
+  const setNewCode = (newCode: any) => {
+    const newCod = newCode;
+    setWrong("");
+    setText("");
+    setIsLoading(false);
+    return newCod;
+  }
+
     const calculateCodeVehicle = () => {
       const newCode = valuesVehicle.map((item: any) => item.value).join('');
-      return newCode.length > 4 ? newCode : undefined;
+      return newCode.length > 4 ? setNewCode(newCode) : undefined;
     };
   
     useEffect(() => {
@@ -59,49 +74,62 @@ export const useCreatevehicleEntrance = () => {
 
     const {VehicleCredential} = dataVehicle;
 
-    if(VehicleCredential !== undefined){
-
-        const getVehicle = async () => {
-        const payload = {
-          VehicleCredential: codeVehicle,
-          plataformId: user?.login?.plataformId,
-          operatorId: user?.login?.id,
-        }
-
+    useEffect(() => {
+      if(VehicleCredential !== undefined){
   
-         try {
-  
-        //    const { data } = await axios.post(`${API_URL}check-Vehicle`, payload,
-        //     {
-        //       headers: {
-        //       Authorization: `Bearer ${user.authorizationToken}`
-        //       }
-        //   });
-  
-          //if(data?.text?.stepForward === true){
-            return Alert.alert("Aviso", "Veículo autorizado", [
-            {
-                text: "Proxima etapa",
-                    onPress: () => navigate?.navigate("enterconcluited")
-                }
-            ]) 
-        //}
-  
-        } catch (error: any) {
-          if(error?.response?.status === 404){
-            Alert.alert("Aviso", "Dados não encontrados", [
-              {
-                text: "Tentar Novamente",
-                onPress: () => setCodeVehicle("")
-              }
-            ]);
+          const getVehicle = async () => {
+          const payload = {
+            VehicleCredential: codeVehicle,
+            plataformId: user?.login?.plataformId,
+            operatorId: user?.login?.id,
           }
-          console.log("Xihh deu erro: ", error);
+  
+    
+           try {
+    
+             const { data } = await axios.post(`${API_URL}check-Vehicle`, payload,
+              {
+                headers: {
+                Authorization: `Bearer ${user.authorizationToken}`
+                }
+            });
+    
+            if(data?.text?.stepForward === true){
+              return Alert.alert("Aviso", "Veículo autorizado", [
+              {
+                  text: "Proxima etapa",
+                      onPress: () => getDataVehicle(data)
+                  }
+              ]) 
+          }
+    
+          } catch (error: any) {
+            if(error?.response?.status === 404){
+              setWrong("error");
+  
+              setText(`${ error?.response?.data?.message == "Invalid credencial, vehicle not found in the system" ? "Credencial inválida, veículo não encontrado no sistema" : error?.response?.data?.message == "Alert, vehicle does not match with driver distribuitor" ? "veículo não corresponde ao distribuidor do motorista" : "Credencial inválida"}`);
+  
+            //   Alert.alert("Aviso", "Dados não encontrados", [
+            //     {
+            //       text: "Tentar Novamente",
+            //       onPress: () => setCodeVehicle("")
+            //     }
+            //   ]);
+              return
+             }
+            // console.log("Xihh deu erro: ", error);
+  
+          }
         }
+        getVehicle();
       }
-      getVehicle();
+    }, [VehicleCredential])
+
+    const getDataVehicle = async (data: any) => {
+      await AsyncStorage.setItem('entranceData', JSON.stringify(data));
+      navigate?.navigate("enterconcluited")
     }
 
-    return { valuesVehicle, handleInputChangeVehicle, setFocusedIndexVehicle, inputRefsVehicle }
+    return { valuesVehicle, handleInputChangeVehicle, setFocusedIndexVehicle, inputRefsVehicle, wrong, isLoading, text }
 
 }
