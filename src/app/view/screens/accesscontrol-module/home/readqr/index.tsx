@@ -9,12 +9,14 @@ import { CameraView, useCameraPermissions } from "expo-camera";
 import { useContext, useState } from "react";
 import CheckedIconSvg from "@/app/view/components/svg/CheckedSvg";
 import { routing } from "@/app/viewmodel/services/Navegation";
-import { ModalAlert } from "@/app/view/components/modal/ModalAlert";
 import { ModalContext } from "@/app/viewmodel/context/ModalContext";
 import { useGetDatas } from "@/app/viewmodel/hooks/useGetDatas";
 import { useAuth } from "@/app/viewmodel/context/AuthContext";
 import axios from "axios";
 import { API_URL } from "@/app/viewmodel/utils/server/enpoint";
+import { LoadingCode } from "@/app/view/components/loading";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
 
 enum STATE {
     "motorist", 
@@ -32,15 +34,23 @@ export default function QRread(){
     const [vehicle, setVehicle] = useState<string | any>()
 
     const [flag, setFlag] = useState<string | STATE>(STATE.motorist);
-    const {user, login, logout} = useAuth();
+
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoading2, setIsLoading2] = useState<boolean>(false);
+    const [text, setText] = useState<string>();
+    const [text2, setText2] = useState<string>();
+
+    const {user } = useAuth();
 
     const {data: driversdata} = useGetDatas("driver");
 
+    const navigate: any = useNavigation();
         
     const handleBarcodeScannerMotorist = async ({data: driverPaperCredential}: any) => {
         try {
             if(!scan){
                 setScan(driverPaperCredential);
+                setIsLoading(true);
 
                 const payload = {
                     driverCredential: driverPaperCredential,
@@ -56,22 +66,21 @@ export default function QRread(){
                     });
 
                     if(data?.text?.stepForward === true){
-                        return Alert.alert("Aviso", "Motorista autorizado", [
+                        return Alert.alert("Notificação", "Motorista autorizado", [
                         {
-                            text: "Proxima etapa",
+                            text: "Próxima etapa",
                                 onPress: () => getDataDriver(data)
                             }
                         ]) 
                     }
 
+                    setIsLoading(false)
+
                 } catch (error: any) {
                     if(error?.response?.status === 404){
-                        Alert.alert("Aviso", `Dados não reconhecidos.`, [
-                            {
-                                text: "tentar Novamente",
-                                onPress: () => setScan(null)
-                            }
-                        ])
+                        setText(`${ error?.response?.data?.message == "Invalid credencial, driver not found in the system" ? "Credencial inválida, motorista não encontrado no sistema" : "Credencial inválida"} `);
+                        setScan(null);
+
                         return
                     }
                 }
@@ -94,8 +103,8 @@ export default function QRread(){
     const handleBarcodeScannerVehicle = async ({data: vehicle}: any) => {
             try {
                 if(!scan){
-                console.log("Foi");
                     setScan(vehicle);
+                    setIsLoading2(true);
     
                     const payloadVehicle = {
                         vehicleCredential: vehicle,
@@ -111,12 +120,8 @@ export default function QRread(){
                             Authorization: `Bearer ${user.authorizationToken}`
                             }
                         });
-
-
-                        console.log("Eita", data);
     
-    
-                        if(data?.text?.checked == true){
+                         if(data?.text?.status === 200){
                             return Alert.alert("Aviso", "Veículo autorizado", [
                             {
                                 text: "Ok",
@@ -124,16 +129,14 @@ export default function QRread(){
                                 }
                             ]) 
                         }
+
+                        setIsLoading2(false)
     
     
                     } catch (error: any) {
                         if(error?.response?.status === 404){
-                            Alert.alert("Aviso", `Dados não reconhecidos.`, [
-                                {
-                                    text: "tentar Novamente",
-                                    onPress: () => setScan(null)
-                                }
-                            ])
+                            setText2(`${ error?.response?.data?.message == "Invalid credencial, vehicle not found in the system" ? "Credencial inválida, veículo não encontrado no sistema" : error?.response?.data?.message == "Alert, vehicle does not match with driver distribuitor" ? "veículo não corresponde ao distribuidor do motorista" : "Credencial inválida"} `);
+                            setScan(null);
                             return
                         }
                     }
@@ -149,13 +152,14 @@ export default function QRread(){
         setDriver(data)
         setScan(null);
         setFlag(STATE.vehicle);
-        console.log(scan)
     }
 
-    const getDataVehicle = (data: any)  => {
+    const getDataVehicle = async (data: any)  => {
+        await AsyncStorage?.setItem('entranceData', JSON.stringify(data));
         setVehicle(data)
         setScan(null);
         setFlag(STATE.concluited);
+        navigate.navigate("enterconcluited");
     }
 
     const handleSubmitDataAuth = async () => {
@@ -208,6 +212,18 @@ export default function QRread(){
                             </CameraView>
                             <Text style={style.textInfo}>QR do motorista</Text>
                             {/* <ModalAlert modalType="success"/> */}
+
+                            {
+                                isLoading ? (
+                                    <View style={{marginTop: 10}}>
+                                        <LoadingCode />
+                                    </View>
+                                ) : (
+                                    <View style={{marginTop: 20, alignItems: "center"}}>
+                                    <Text style={{color: "red", textAlign: "center", fontSize: 13, fontWeight: 500}}>{text}</Text>
+                                    </View>
+                                )  
+                            }
 
 
                             </View>

@@ -34,10 +34,11 @@ export default function Home(){
     const navigate: any = useNavigation();
 
     const cards: cardProps[] = [
-        {title: "Ler o Código QR", icon: <QRIconSvg/>, event: () => navigate.navigate("entercodedriver")},
-        {title: "Digitar Código", icon: <WriteIconSvg/>, event: routing.handleRouteEnterMotoristCode}
+        {title: "Digitar Código", icon: <WriteIconSvg/>, event: navigate.navigate("qrcoderead")},
+        {title: "Ler o Código QR", icon: <QRIconSvg/>, event: () => {} }
     ]
 
+    //navigate.navigate("entercodedriver")
         
     return (
         <Container>
@@ -47,13 +48,21 @@ export default function Home(){
                 </View>
                 <View style={Styles.viewcard}>
 
-                    {
-                        cards.map((item: cardProps) => (
+                    {/* {
+                        cards?.map((item: cardProps) => (
                             <TouchableOpacity activeOpacity={0.9} onPress={item.event} style={{width: "50%"}}>
                                 <CardHome icon={item.icon} title={item.title} />
                             </TouchableOpacity>
                         ))
-                    }
+                    } */}
+
+                    <TouchableOpacity activeOpacity={0.9} onPress={() => navigate.navigate("qrcoderead")} style={{width: "50%"}}>
+                        <CardHome icon={<WriteIconSvg/>} title="Digitar Código" />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity activeOpacity={0.9} onPress={() => navigate.navigate("entercodedriver")} style={{width: "50%"}}>
+                        <CardHome icon={<QRIconSvg/>} title="Ler o Código QR" />
+                    </TouchableOpacity>
 
                 </View>
                 <View style={Styles.viewlist}>
