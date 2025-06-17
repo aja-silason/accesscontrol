@@ -4,11 +4,12 @@ export const Styles = StyleSheet.create({
     constainerHome: {
         backgroundColor: "rgba(248, 248, 249, 1)",
         height: 140,
-        width: 160,
+        width: "100%",
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 9,
-        gap: 15
+        gap: 15,
+        padding: 10
     },
     titleHome: {
         fontWeight: "500",

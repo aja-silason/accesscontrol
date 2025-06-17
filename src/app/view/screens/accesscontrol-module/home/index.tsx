@@ -10,8 +10,14 @@ import Container from "../../../components/container";
 import { routing } from "@/app/viewmodel/services/Navegation";
 import { Link } from "expo-router";
 import { useAuth } from "@/app/viewmodel/context/AuthContext";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useGetDatas } from "@/app/viewmodel/hooks/useGetDatas";
+
+type cardProps = {
+    title: string;
+    icon: ReactNode;
+    event: VoidFunction
+}
 
 export default function Home(){
 
@@ -23,6 +29,11 @@ export default function Home(){
     const entrance = plataform?.map((plataform: any) => plataform.platformEntrances); 
 
     entrance?.map((item: any) => console.log("erro de network", item.id));
+
+    const cards: cardProps[] = [
+        {title: "Ler o Código QR", icon: <QRIconSvg/>, event: routing.handleRouteQrRead},
+        {title: "Digitar Código", icon: <WriteIconSvg/>, event: routing.handleRouteEnterMotoristCode}
+    ]
         
     return (
         <Container>
@@ -31,13 +42,14 @@ export default function Home(){
                     <Text style={Styles.title}>Controlo de Acesso</Text>
                 </View>
                 <View style={Styles.viewcard}>
-                    <TouchableOpacity activeOpacity={0.9} onPress={routing.handleRouteQrRead}>
-                        <CardHome icon={<QRIconSvg/>} title="Ler o Código QR" />
-                    </TouchableOpacity>
 
-                    <TouchableOpacity activeOpacity={0.9} onPress={routing.handleRouteEnterMotoristCode}>
-                        <CardHome icon={<WriteIconSvg/>} title="Digitar o Código"/>
-                    </TouchableOpacity>
+                    {
+                        cards.map((item: cardProps) => (
+                            <TouchableOpacity activeOpacity={0.9} onPress={item.event} style={{width: "50%"}}>
+                                <CardHome icon={item.icon} title={item.title} />
+                            </TouchableOpacity>
+                        ))
+                    }
 
                 </View>
                 <View style={Styles.viewlist}>

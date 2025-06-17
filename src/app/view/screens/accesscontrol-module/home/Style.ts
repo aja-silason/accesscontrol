@@ -11,7 +11,7 @@ export const Styles = StyleSheet.create({
         marginTop: 15
     },
     title: {
-        fontSize: 20,
+        fontSize: 15,
         color: "#020100",
         fontWeight: "700"
     },
@@ -21,8 +21,9 @@ export const Styles = StyleSheet.create({
     },
     viewcard: {
         flexDirection: "row",
-        justifyContent: "space-between"
-        // marginBottom: 10
+        justifyContent: "space-between",
+        // marginBottom: 10,
+        width: "100%"
     },
     viewlist: {
         backgroundColor: "#fff",
