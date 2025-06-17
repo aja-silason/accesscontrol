@@ -1,5 +1,4 @@
 import { Alert, ScrollView, Switch, Text, View } from "react-native";
-import { ContainerLessMenuLessGradiente } from "@/app/screens/container";
 import { HeaderIn } from "@/app/view/components/header";
 import { Button } from "@/app/view/components/button";
 import { InputContainer, SelectContainer, Textarea } from "@/app/view/components/input/input";
@@ -11,6 +10,7 @@ import { Loading } from "@/app/view/components/loading";
 import { useAuth } from "@/app/viewmodel/context/AuthContext";
 import axios from "axios";
 import { API_URL } from "@/app/viewmodel/utils/server/enpoint";
+import { ContainerLessMenuLessGradiente } from "../../../container";
 
 type typePayload = {
     distribuitorId: string,
@@ -42,13 +42,13 @@ export default function Supplie() {
 
     const {user} = useAuth()
       
-    const distribuitorData = option?.map((item:any) => ({label: item?.distribuitor, value: item?.id, id: item?.id}));
+    const distribuitorData: any = option?.map((item:any) => ({label: item?.distribuitor, value: item?.id, id: item?.id}));
 
-    const productData = option2?.map((item:any) => ({label: item?.product, value: item?.id, id: item?.id}));
+    const productData: any = option2?.map((item:any) => ({label: item?.product, value: item?.id, id: item?.id}));
       
-    const driverdata = driver?.filter((data: any) => data?.driverCode?.toLowerCase()?.includes(searchDriver.toLocaleLowerCase()))
+    const driverdata: any = driver?.filter((data: any) => data?.driverCode?.toLowerCase()?.includes(searchDriver.toLocaleLowerCase()))
 
-    const vehicledata = vehicle?.filter((data: any) => data?.driverCode?.toLowerCase()?.includes(searchVehicle.toLocaleLowerCase()))
+    const vehicledata: any = vehicle?.filter((data: any) => data?.driverCode?.toLowerCase()?.includes(searchVehicle.toLocaleLowerCase()))
 
       const handleSubmit = async () => {
           setIsloading(true)

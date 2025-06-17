@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { API_URL } from '@/app/viewmodel/utils/server/enpoint';
 import { Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 type AuthContextProps = {
   user: any

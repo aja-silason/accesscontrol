@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+/*import React, { useState, useEffect, useContext } from 'react';
 import Modal from 'react-native-modal';
 import { Button } from "../button"
 import { Text, TouchableOpacity, View } from 'react-native';
@@ -75,4 +75,4 @@ export const ModalAlert = ({modalType = "success"}: any) => {
         </View>
     )
   );
-};
+};*/

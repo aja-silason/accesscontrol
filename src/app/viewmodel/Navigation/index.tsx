@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { useAuth } from "../context/AuthContext";
 import LoginScreen from "@/app/view";
+import UserAceessControllTabs from "../layout/user-accesscontrol-tabs";
 
 export default function Navigation () {
 
@@ -12,7 +13,7 @@ export default function Navigation () {
         <stack.Navigator>
             {
                 user?.login?.role?.role == "A" ? (
-                    <stack.Screen name="login" component={LoginScreen}/>
+                    <stack.Screen name="accessControll" component={UserAceessControllTabs}/>
                 ) : user?.login?.role?.role == "A" ? (
                     <stack.Screen name="login" component={LoginScreen}/>
                 ) : (

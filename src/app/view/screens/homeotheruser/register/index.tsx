@@ -1,5 +1,4 @@
 import { Switch, Text, View } from "react-native";
-import { ContainerLessMenuLessGradiente } from "@/app/screens/container";
 import { HeaderIn } from "@/app/view/components/header";
 import { Button, ButtonWithIcon } from "@/app/view/components/button";
 import { Style } from "./style";
@@ -8,6 +7,7 @@ import { useState } from "react";
 import FuelSVG from "@/app/view/components/svg/Fuel";
 import CautionSvg from "@/app/view/components/svg/CautionSvg";
 import { routing } from "@/app/viewmodel/services/Navegation";
+import { ContainerLessMenuLessGradiente } from "../../container";
 
 
 export default function Ocorrency() {
