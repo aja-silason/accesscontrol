@@ -12,6 +12,7 @@ import { Link } from "expo-router";
 import { useAuth } from "@/app/viewmodel/context/AuthContext";
 import { ReactNode, useEffect, useState } from "react";
 import { useGetDatas } from "@/app/viewmodel/hooks/useGetDatas";
+import { useNavigation } from "@react-navigation/native";
 
 type cardProps = {
     title: string;
@@ -29,11 +30,14 @@ export default function Home(){
     const entrance = plataform?.map((plataform: any) => plataform.platformEntrances); 
 
     entrance?.map((item: any) => console.log("erro de network", item.id));
+    
+    const navigate: any = useNavigation();
 
     const cards: cardProps[] = [
-        {title: "Ler o Código QR", icon: <QRIconSvg/>, event: routing.handleRouteQrRead},
+        {title: "Ler o Código QR", icon: <QRIconSvg/>, event: () => navigate.navigate("entercodedriver")},
         {title: "Digitar Código", icon: <WriteIconSvg/>, event: routing.handleRouteEnterMotoristCode}
     ]
+
         
     return (
         <Container>

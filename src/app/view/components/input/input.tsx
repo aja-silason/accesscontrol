@@ -98,7 +98,7 @@ export const SearchInput = ({placeholder = ""}: SearchProp) => {
 }
 
 
-export const OneDigiteInput = forwardRef((props, ref) => {
+export const OneDigiteInput = forwardRef((props: any, ref) => {
     useImperativeHandle(ref, () => ({
         focus: () => {
         textInputRef.current?.focus();
@@ -109,7 +109,7 @@ export const OneDigiteInput = forwardRef((props, ref) => {
 
     return (
         <View>
-            <TextInput style={Styles.oneDigiteInput} maxLength={1} textContentType="creditCardNumber" keyboardType="name-phone-pad" ref={textInputRef} {...props}/>
+            <TextInput style={[Styles.oneDigiteInput, props.wrong === "error" ? Styles.oneDigiteWrong : "" ]} maxLength={1} textContentType="creditCardNumber" keyboardType="name-phone-pad" ref={textInputRef} {...props}/>
         </View>
     )
 });
@@ -118,7 +118,7 @@ type propsTextarea = {
     title: string,
     place: string,
     onChangeText: any 
-    value: string
+    value: string | any
 }
 
 export const  Textarea = ({title, place, onChangeText, value}: propsTextarea) => {

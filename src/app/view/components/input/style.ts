@@ -63,6 +63,9 @@ export const Styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         textAlign: "center"
+    },
+    oneDigiteWrong: {
+        borderColor: "red"
     }
 
 }) 

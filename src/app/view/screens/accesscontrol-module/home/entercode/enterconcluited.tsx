@@ -8,11 +8,14 @@ import { useRef, useState } from "react";
 import CheckedIconSvg from "@/app/view/components/svg/CheckedSvg";
 import { Button } from "@/app/view/components/button";
 import { routing } from "@/app/viewmodel/services/Navegation";
+import { useNavigation } from "@react-navigation/native";
 
 export default function EnterCodeConcluited() {
 
+    const navigate: any = useNavigation();
+
     function finnaly(){
-        routing.handleRouteHomeNonBackAgain();
+        navigate.navigate("accessControll");
     }
 
     return (

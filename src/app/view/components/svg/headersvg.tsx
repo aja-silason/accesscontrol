@@ -16,7 +16,7 @@ const HeaderSvg = (props: SvgProps) => (
     height="100%"
     fill="none"
     {...props}
-    className="w-[1000px]"
+    className="w-[1000#]"
   >
     <G clipPath="url(#a)" filter="url(#b)">
       <Path fill="url(#c)" d="M0 0h393v119H0z" />

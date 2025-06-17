@@ -8,6 +8,8 @@ import { Modal } from "../modal";
 import { router } from "expo-router";
 import { Style } from "./styles";
 import { useAuth } from "@/app/viewmodel/context/AuthContext";
+import { useNavigation } from "@react-navigation/native";
+import { Colors } from "../../styles/color";
 
 enum MODAL {
     NONE = 0,
@@ -27,7 +29,7 @@ export function Header() {
 
 
     return (
-        <View style={Style.containerHeader}>
+        <View style={[Style.containerHeader, {backgroundColor: Colors.orange[300]}]}>
             <View style={Style.fixedColor}>
                 <HeaderSvg style={Style.headSVG}/>
             </View>
@@ -56,15 +58,17 @@ type headerInProp = {
 }
 
 export const HeaderIn = ({title, back}: headerInProp) => {
+
+    const navigate = useNavigation();
     
 
     const handleBack = () => {
-        router.back();
+        navigate.goBack()
     }
 
     return (
         back === "yes" ? (
-            <View style={Style.containerHeader}>
+            <View style={[Style.containerHeader, {backgroundColor: Colors.orange[300]}]}>
                 <View style={Style.fixedColor}>
                     <HeaderSvg style={Style.headSVG}/>
                 </View>

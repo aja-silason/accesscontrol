@@ -18,21 +18,19 @@ export default function AccesHistory(){
     }
 
     return (
-        <View>
-            <HeaderIn title="Distribuidoras"/>
-                <Container>
-                        <View style={Style.viewlist}>
-                            <FlatList
-                                data={distribuitor}
-                                keyExtractor={(item: any) => item.id}
-                                renderItem={({ item }) => (
-                                    <TouchableOpacity  onPress={() => handleRouteAccessHistoryId(item.id)} activeOpacity={0.9}>
-                                        <CardList brandOfCar={item.distribuitor} date={item.createdAt} distribuitor={item.distribuitor} typeOfCar={item.licenceNumber}/>
-                                    </TouchableOpacity>
-                                )
-                            } showsVerticalScrollIndicator={false}/>
-                        </View>
-                </Container>
-        </View>
+        <Container>
+                <View style={Style.viewlist}>
+                    <Text style={{fontSize: 15, fontWeight: 600}}>Distribuidoras</Text>
+                    <FlatList
+                        data={distribuitor}
+                        keyExtractor={(item: any) => item.id}
+                        renderItem={({ item }) => (
+                            <TouchableOpacity  onPress={() => handleRouteAccessHistoryId(item.id)} activeOpacity={0.9}>
+                                <CardList brandOfCar={item.distribuitor} date={item.createdAt} distribuitor={item.distribuitor} typeOfCar={item.licenceNumber}/>
+                            </TouchableOpacity>
+                        )
+                    } showsVerticalScrollIndicator={false}/>
+                </View>
+        </Container>
     )
 }

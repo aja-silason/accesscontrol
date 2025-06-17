@@ -23,7 +23,8 @@ export const Styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         // marginBottom: 10,
-        width: "100%"
+        width: "98%",
+        gap: 10
     },
     viewlist: {
         backgroundColor: "#fff",

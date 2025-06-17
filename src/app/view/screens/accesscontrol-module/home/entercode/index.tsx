@@ -234,7 +234,7 @@ export default function EnterCodeMotorist() {
         </View>
         ) : flag == SCREEN.vehicle ? (
 
-          <View>
+        <View>
         <HeaderIn title="Carro" back="yes"/>
         <ContainerLessMenuLessGradiente>
             <View style={style.container}>

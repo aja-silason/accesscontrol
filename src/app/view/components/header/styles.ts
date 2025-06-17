@@ -9,6 +9,7 @@ export const Style = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center", 
         width: "100%",
+        textAlign: "center"
         // paddingHorizontal: 10,
     },
     containerHeaderLessBackground: {
@@ -77,7 +78,8 @@ export const Style = StyleSheet.create({
     titleHeaderBack: {
         fontWeight: "600",
         fontSize: 20,
-        marginLeft: 10
+        marginLeft: 10,
+        textAlign: "center"
     },
     centerTextInHeader: {
         // w-full items-center
@@ -87,10 +89,13 @@ export const Style = StyleSheet.create({
     centerTextAlign: {
         flexDirection: "row",
         width: "100%",
-        alignItems: "center"
+        marginLeft: -40,
+        alignItems: "center",
+        textAlign: "center",
+        justifyContent: "center"
     },
     backButton: {
-        marginRight: 70
+        zIndex: 50
     }
 
 })
