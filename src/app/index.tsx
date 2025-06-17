@@ -59,7 +59,7 @@ export default function Page() {
       <View style={Style.loginData}>
         
         <View>
-          <Text style={Style.texth1}>Acessar sua conta</Text>
+          <Text style={Style.texth1}>Acessar conta</Text>
           <Text style={Style.textp}>Por favor! Preencha o formulário com suas credenciais.</Text>
         </View>
 

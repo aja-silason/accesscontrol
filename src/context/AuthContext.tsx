@@ -13,7 +13,7 @@ type AuthContextProps = {
 }
 
 type dataAccess = {
-  telephone: string | number,
+  login: string | number,
   password: string | number,
 }
 
@@ -32,11 +32,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     try {
 
       const payload: dataAccess = {
-        telephone: email,
+        login: email,
         password: password
       }
 
-    const isAccess: Array<keyof dataAccess> = ['password', 'telephone'];
+    const isAccess: Array<keyof dataAccess> = ['password', 'login'];
     for(const key of isAccess) {
         if(payload[key] === "" || payload[key] == undefined || payload[key] == " " ){
           return Alert.alert("Aviso", "Dados incorrectos", [
