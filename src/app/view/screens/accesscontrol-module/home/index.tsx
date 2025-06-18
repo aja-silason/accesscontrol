@@ -36,8 +36,8 @@ export default function Home() {
                         <CardHome icon={<WriteIconSvg />} title="Digitar Código" />
                     </TouchableOpacity>
 
-                    <TouchableOpacity activeOpacity={0.9} onPress={() => navigate.navigate("entercodedriver")} style={{ width: "50%" }}>
-                        <CardHome icon={<WriteIconSvg />} title="Digitar Código" />
+                    <TouchableOpacity activeOpacity={0.9} onPress={() => navigate.navigate("qrcoderead")} style={{ width: "50%" }}>
+                        <CardHome icon={<QRIconSvg />} title="Scanear código QR" />
                     </TouchableOpacity>
 
                 </View>

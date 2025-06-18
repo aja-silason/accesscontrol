@@ -15,11 +15,11 @@ export default function AccesHistory() {
 
     return (
         <Container>
-            <View style={Style.viewlist}>
+            <View style={[Style.viewlist, {height: "100%"}]}>
                 <Text style={{ fontSize: 15, fontWeight: 600 }}>Distribuidoras</Text>
 
                 {
-                    distribuitor?.length == 0 ? (
+                    distribuitor == undefined || distribuitor == null ? (
 
                         <View style={{ justifyContent: "center", alignItems: "center", flex: 1, height: "100%" }}>
                             <LoadingCode />

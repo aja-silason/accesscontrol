@@ -65,7 +65,6 @@ export default function CheckList() {
                 <View style={style.container}>
 
                     <View style={{width: "100%"}}>
-                        <Text>Scree</Text>
 
                         <InputContainer style={{ width: "100%" }}>
                             <InputContainer.Field>E-mail</InputContainer.Field>

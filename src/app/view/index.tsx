@@ -19,7 +19,6 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 
 
 export default function LoginScreen() {
-  const [link, setLink] = useState<string>("");
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [textBtn, setTextBtn] = useState("Entrar");
