@@ -20,7 +20,7 @@ export default function UserRefuelTabs() {
                 component={HomeRefuel}
                 options={{
                     headerShown: false,
-                    title: "inicio",
+                    title: "Inicio",
                     tabBarIcon: ({ color, focused, size }) => (
                         <Ionicons name="home-outline" color={focused ? color : color} size={size} />
                     )
