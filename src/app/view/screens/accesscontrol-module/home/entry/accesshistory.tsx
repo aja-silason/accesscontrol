@@ -1,18 +1,14 @@
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 import { useState } from "react";
-import { useLocalSearchParams } from "expo-router";
 import { ContainerLessMenu } from "../../../../components/container";
 import { HeaderLessGradient } from "@/app/view/components/header";
 import { CardDetails, CardList } from "@/app/view/components/cards/Cards";
 import { Styles } from "./style";
-import { mockCars } from "@/app/viewmodel/utils/mocks/mock";
 import { TabButton } from "@/app/view/components/button";
 import { useRoute } from "@react-navigation/native";
 
 
 export default function AccessEntry() {
-
-  const { id } = useLocalSearchParams();
 
   const route: any = useRoute();
   const { payload } = route?.params;

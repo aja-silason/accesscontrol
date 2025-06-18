@@ -1,10 +1,8 @@
-import { Header, HeaderIn } from "@/app/view/components/header";
+import { HeaderIn } from "@/app/view/components/header";
 import { Text, View } from "react-native";
 import { ContainerLessMenuLessGradiente } from "../../../../components/container";
 import { style } from "./style";
 import { RadioCards } from "@/app/view/components/cards/Cards";
-import { OneDigiteInput } from "@/app/view/components/input/input";
-import { useRef, useState } from "react";
 import CheckedIconSvg from "@/app/view/components/svg/CheckedSvg";
 import { Button } from "@/app/view/components/button";
 import { routing } from "@/app/viewmodel/services/Navegation";
