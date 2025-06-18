@@ -10,19 +10,26 @@ import GasSvg from "@/app/view/components/svg/GasSvg";
 import { routing } from "@/app/viewmodel/services/Navegation";
 import { useAuth } from "@/app/viewmodel/context/AuthContext";
 import { useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { useGetDatas } from "@/app/viewmodel/hooks/useGetDatas";
 
 export default function HomeRefuel(){
 
     const {user} = useAuth();
 
+    const navigate: any = useNavigation();
+
     if(!user) {
-        routing.handleRouteLogin();
+        navigate.replace("login");
+
     }
 
+    console.log(user?.login?.plataform?.id);
+
+    const { data: plataform }:any = useGetDatas(`platform/key/${user?.login?.plataform?.id}`)
+    
     return (
-        
-        <View>
-        <Header/>
+
         <Container>
             <View style={Styles.container}>
                 <View style={Styles.textCont}>
@@ -41,10 +48,10 @@ export default function HomeRefuel(){
                     </View>
 
                     <View style={Styles.viewcard}>
-                        <UniCard entrance={0} out={0}/>
+                        <UniCard entrance={plataform?.platformEntrances?.length} out={plataform?.platformExits?.length}/>
                     </View>
 
-                    <View style={Styles.cardsDetails}>
+{/*                    <View style={Styles.cardsDetails}>
                         <CardLeft quantity={2} title="Abastecimento">
                             <GasSvg/>
                         </CardLeft>
@@ -53,11 +60,10 @@ export default function HomeRefuel(){
                             <AlertSvg/>
                         </CardLeft>
                     </View>
-                    
+*/}                    
 
                 </View>
             </View>
         </Container>
-    </View>
     )
 }
