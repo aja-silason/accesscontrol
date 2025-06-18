@@ -1,16 +1,10 @@
 import { CardHome, CardList } from "@/app/view/components/cards/Cards";
-import { FlatList, ScrollView, Text, TouchableOpacity, View } from "react-native"
+import { ScrollView, Text, TouchableOpacity, View } from "react-native"
 import { Styles } from "./Style";
 import QRIconSvg from "@/app/view/components/svg/qricon";
 import WriteIconSvg from "@/app/view/components/svg/WriteIconSvg";
-import { mockCars } from "@/app/viewmodel/utils/mocks/mock";
-import { SearchInput } from "@/app/view/components/input/input";
-import { Header } from "@/app/view/components/header";
 import Container from "../../../components/container";
-import { routing } from "@/app/viewmodel/services/Navegation";
-import { Link } from "expo-router";
-import { useAuth } from "@/app/viewmodel/context/AuthContext";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode } from "react";
 import { useGetDatas } from "@/app/viewmodel/hooks/useGetDatas";
 import { useNavigation } from "@react-navigation/native";
 import EmptyContentSvg from "@/app/view/components/svg/EmptyContent";
@@ -24,23 +18,11 @@ type cardProps = {
 
 export default function Home() {
 
-    const { user } = useAuth();
-
-    // const {data: quantity} = useGetDatas("platform");
     const { data: plataform } = useGetDatas("platform");
 
     const entrance = plataform?.map((plataform: any) => plataform);
 
     const navigate: any = useNavigation();
-
-    /*const cards: cardProps[] = [
-        {title: "Digitar Código", icon: <WriteIconSvg/>, event: navigate.navigate("qrcoderead")},
-        {title: "Ler o Código QR", icon: <QRIconSvg/>, event: () => {} }
-    ]*/
-
-    //navigate.navigate("accessentry")
-
-    console.log(JSON.stringify(entrance, null, 2))
 
     return (
         <Container>

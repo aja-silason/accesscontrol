@@ -4,15 +4,20 @@ import { ButtonIn } from "@/app/view/components/button";
 import Container from "../../../components/container";
 import { routing } from "@/app/viewmodel/services/Navegation";
 import { useAuth } from "@/app/viewmodel/context/AuthContext";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Settings(){
     const {user, login, logout} = useAuth();
+    
+    const navigate: any = useNavigation();
 
     if(!user) {
-        routing.handleRouteLogin();
+        //routing.handleRouteLogin();
+        navigate.replace("login")
     }
 
-    //const navigate = useNavigation();
+
+    console.log(JSON.stringify(user?.login?.role?.role, null, 2))
     
     return (
             <Container>
@@ -24,8 +29,8 @@ export default function Settings(){
                             <Image source={require("@/assets/profileimage/profile.png")} style={Styles.profileimage}/>
                         </View>
                     </View>
-                    <Text style={Styles.title}>{user.login.name} {user.login.surname}</Text>
-                    <Text style={Styles.subtitle}>Engenheiro de Software</Text>
+                    <Text style={Styles.title}>{user.login.name?.toUpperCase()} {user.login.surname?.toUpperCase()}</Text>
+                    <Text style={Styles.subtitle}>{user?.login?.role?.role.toLowerCase() == "a" ? 'Controlo de Acesso' : user?.login?.role?.role.toLowerCase() == "b" ? 'Abastecimento' : ''}</Text>
                 </View>
 
                 <View style={Styles.innerBtn}>

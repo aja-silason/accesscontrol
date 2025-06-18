@@ -30,8 +30,6 @@ export default function AccessEntry() {
     setIsDriver(false) 
   }
 
-  console.log(JSON.stringify(payload, null, 2))
-
   return (
     <View>
         
