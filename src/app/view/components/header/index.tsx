@@ -10,6 +10,7 @@ import { Style } from "./styles";
 import { useAuth } from "@/app/viewmodel/context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
 import { Colors } from "../../styles/color";
+import { Ionicons } from "@expo/vector-icons";
 
 enum MODAL {
     NONE = 0,
@@ -36,7 +37,8 @@ export function Header() {
             <View style={Style.containerHead}>
                 <SonangolHeaderSVG style={Style.logo} width={200}/>
                 <TouchableOpacity activeOpacity={0.9} onPress={() => setShowModal(MODAL.HEADE)}>
-                    <Image source={require("@/assets/profileimage/profile.png")} alt="picture" style={Style.profilePicture}/>
+                    {/*<Image source={require("@/assets/profileimage/profile.png")} alt="picture" style={Style.profilePicture}/>*/}
+                    <Ionicons name="menu" size={30}/>
                 </TouchableOpacity>
             </View>
 

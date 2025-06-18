@@ -29,7 +29,8 @@ export const Styles = StyleSheet.create({
     innerContainerList: {
         justifyContent: "space-between",
         // width: "100%",
-        flexDirection: "row"
+        flexDirection: "row",
+        width: "95%"
     },
     titleList: {
         fontSize: 16,

@@ -7,6 +7,8 @@ import EnterCodeDriver from "@/app/view/screens/accesscontrol-module/home/enterc
 import EnterCodeInVehicle from "@/app/view/screens/accesscontrol-module/home/entercode/vehicle";
 import EnterCodeConcluited from "@/app/view/screens/accesscontrol-module/home/entercode/enterconcluited";
 import QRread from "@/app/view/screens/accesscontrol-module/home/readqr";
+import AccessEntry from "@/app/view/screens/accesscontrol-module/home/entry/accesshistory";
+import RecentAccessEntry from "@/app/view/screens/accesscontrol-module/home/recentEntrance";
 
 export default function Navigation () {
 
@@ -24,6 +26,8 @@ export default function Navigation () {
                         <stack.Screen name="entercodevehicle" component={EnterCodeInVehicle} options={{headerShown: false, statusBarStyle: "dark", headerTransparent: true}}/>
                         <stack.Screen name="qrcoderead" component={QRread} options={{headerShown: false, statusBarStyle: "dark", headerTransparent: true}}/>
                         <stack.Screen name="enterconcluited" component={EnterCodeConcluited} options={{headerShown: false, statusBarStyle: "dark", headerTransparent: true}}/>
+                        <stack.Screen name="recentaccessentry" component={RecentAccessEntry} options={{headerShown: false, statusBarStyle: "dark", headerTransparent: true}}/>
+                        
                     </>
                 ) : user?.login?.role?.role == "B" ? (
                     <stack.Screen name="login" component={LoginScreen} options={{headerShown: false, statusBarStyle: "dark", headerTransparent: true}}/>

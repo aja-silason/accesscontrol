@@ -13,6 +13,8 @@ import { useAuth } from "@/app/viewmodel/context/AuthContext";
 import { ReactNode, useEffect, useState } from "react";
 import { useGetDatas } from "@/app/viewmodel/hooks/useGetDatas";
 import { useNavigation } from "@react-navigation/native";
+import EmptyContentSvg from "@/app/view/components/svg/EmptyContent";
+import { Loading, LoadingCode } from "@/app/view/components/loading";
 
 type cardProps = {
     title: string;
@@ -20,26 +22,26 @@ type cardProps = {
     event: VoidFunction
 }
 
-export default function Home(){
+export default function Home() {
 
-    const {user} = useAuth();
+    const { user } = useAuth();
 
     // const {data: quantity} = useGetDatas("platform");
-    const {data: plataform} = useGetDatas("platform");
+    const { data: plataform } = useGetDatas("platform");
 
-    const entrance = plataform?.map((plataform: any) => plataform.platformEntrances); 
+    const entrance = plataform?.map((plataform: any) => plataform);
 
-    entrance?.map((item: any) => console.log("erro de network", item.id));
-    
     const navigate: any = useNavigation();
 
-    const cards: cardProps[] = [
+    /*const cards: cardProps[] = [
         {title: "Digitar Código", icon: <WriteIconSvg/>, event: navigate.navigate("qrcoderead")},
         {title: "Ler o Código QR", icon: <QRIconSvg/>, event: () => {} }
-    ]
+    ]*/
 
-    //navigate.navigate("entercodedriver")
-        
+    //navigate.navigate("accessentry")
+
+    console.log(JSON.stringify(entrance, null, 2))
+
     return (
         <Container>
             <View style={Styles.container}>
@@ -48,20 +50,12 @@ export default function Home(){
                 </View>
                 <View style={Styles.viewcard}>
 
-                    {/* {
-                        cards?.map((item: cardProps) => (
-                            <TouchableOpacity activeOpacity={0.9} onPress={item.event} style={{width: "50%"}}>
-                                <CardHome icon={item.icon} title={item.title} />
-                            </TouchableOpacity>
-                        ))
-                    } */}
-
-                    <TouchableOpacity activeOpacity={0.9} onPress={() => navigate.navigate("entercodedriver")} style={{width: "50%"}}>
-                        <CardHome icon={<WriteIconSvg/>} title="Digitar Código" />
+                    <TouchableOpacity activeOpacity={0.9} onPress={() => navigate.navigate("entercodedriver")} style={{ width: "50%" }}>
+                        <CardHome icon={<WriteIconSvg />} title="Digitar Código" />
                     </TouchableOpacity>
 
-                    <TouchableOpacity activeOpacity={0.9} onPress={() => navigate.navigate("qrcoderead")} style={{width: "50%"}}>
-                        <CardHome icon={<QRIconSvg/>} title="Ler o Código QR" />
+                    <TouchableOpacity activeOpacity={0.9} onPress={() => navigate.navigate("qrcoderead")} style={{ width: "50%" }}>
+                        <CardHome icon={<QRIconSvg />} title="Ler o Código QR" />
                     </TouchableOpacity>
 
                 </View>
@@ -69,25 +63,36 @@ export default function Home(){
                     <Text style={Styles.title}>Entradas recentes</Text>
 
                     <View style={Styles.searchInputContainer}>
-                        <SearchInput placeholder="a matricula"/>
+                        {/*<SearchInput placeholder="a matricula"/>*/}
                     </View>
                     <View style={Styles.viewListCards}>
-                    <ScrollView style={{backgroundColor: "#fff"}}>
-                        {
-                            entrance.length  > 0 ? entrance.map((item: any) => (
-                                <View>
-                                    <TouchableOpacity onPress={() => routing.handleRouteGetEntries(item.id)} activeOpacity={0.8}>
-                                        <CardList brandOfCar={item?.adress} date={item?.createdAt} distribuitor={item?.plataform} matricula={item?.owner} portOfCar={item.owner} typeOfCar={item.owner}/>
-                                    </TouchableOpacity>
-                                </View>
+                        <ScrollView style={{ backgroundColor: "#fff" }}>
+                            { !entrance ? (
+                                <LoadingCode />
+                            ) : (
+                                entrance?.length > 0 ? entrance?.map((item: any) => (
+                                    <View>
+                                        {
+                                            //item?.map((item: any) => (
+                                                <TouchableOpacity onPress={() => navigate?.navigate("recentaccessentry", {payload: item})} activeOpacity={0.8}>
+                                                    <CardList brandOfCar={item?.adress} date={item?.createdAt} distribuitor={item?.plataform} matricula={item?.owner} portOfCar={item.owner} typeOfCar={item.owner} />
+                                                </TouchableOpacity>
+                                            //))
+                                        }
+                                    </View>
                                 )
 
-                            ) : <View style={{alignItems: "center", justifyContent: "center", height: 100}}>
-                            <Text style={{color: "#ccc", textAlign: "center"}}>Sem dados para apresentar{"\n"} no momento</Text>
-                        </View>
+                                ) : (
+                                    <View style={{ alignItems: "center", justifyContent: "center", height: "100%" }}>
+                                        <EmptyContentSvg width={90} height={90}/>
+                                        <Text style={{ color: "#ccc", textAlign: "center" }}>Sem dados para apresentar{"\n"} no momento</Text>
+                                    </View>
+                                )
                                 
-                        }
-                    </ScrollView>
+                            )
+
+                            }
+                        </ScrollView>
                     </View>
                 </View>
             </View>

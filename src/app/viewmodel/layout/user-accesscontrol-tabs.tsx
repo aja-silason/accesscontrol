@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { Ionicons } from "@expo/vector-icons";
 import AccesHistory from "@/app/view/screens/accesscontrol-module/accesshistory";
 import Settings from "@/app/view/screens/accesscontrol-module/settings";
+import { Colors } from "@/app/view/styles/color";
 
 
 export default function UserAceessControllTabs(){

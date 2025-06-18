@@ -6,9 +6,8 @@ export const Style = StyleSheet.create({
         width: "100%",
         // left: -20,
         right: 0,
-        height: "100%",
         borderColor: "rgba(248,248,248, 1)",
-        paddingTop: 20,
+        paddingVertical: 20,
         paddingHorizontal: 10,
         gap: 10
     },

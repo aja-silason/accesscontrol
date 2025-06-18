@@ -7,11 +7,16 @@ import { CardDetails, CardList } from "@/app/view/components/cards/Cards";
 import { Styles } from "./style";
 import { mockCars } from "@/app/viewmodel/utils/mocks/mock";
 import { TabButton } from "@/app/view/components/button";
+import { useRoute } from "@react-navigation/native";
 
 
-export default function Page() {
+export default function AccessEntry() {
 
   const { id } = useLocalSearchParams();
+
+  const route: any = useRoute();
+  const { payload } = route?.params;
+
   const [isDriver, setIsDriver] = useState(true);
   const [isTransport, setIsTransport] = useState(false);
 
@@ -24,6 +29,8 @@ export default function Page() {
     setIsTransport(!isTransport);
     setIsDriver(false) 
   }
+
+  console.log(JSON.stringify(payload, null, 2))
 
   return (
     <View>
