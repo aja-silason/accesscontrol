@@ -1,15 +1,10 @@
-import { Button, Text, View } from "react-native"
+import { Text, View } from "react-native"
 import { Styles } from "./Style";
-import { Header } from "@/app/view/components/header";
 import Container from "../../../components/container";
 import UserCicleSvg from "@/app/view/components/svg/UserCircle";
 import MapSvg from "@/app/view/components/svg/MapCircleSvg";
-import { CardLeft, UniCard } from "@/app/view/components/cards/Cards";
-import AlertSvg from "@/app/view/components/svg/AlertsSvgs";
-import GasSvg from "@/app/view/components/svg/GasSvg";
-import { routing } from "@/app/viewmodel/services/Navegation";
+import { UniCard } from "@/app/view/components/cards/Cards";
 import { useAuth } from "@/app/viewmodel/context/AuthContext";
-import { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useGetDatas } from "@/app/viewmodel/hooks/useGetDatas";
 
