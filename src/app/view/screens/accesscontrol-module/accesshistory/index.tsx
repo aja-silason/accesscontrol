@@ -19,7 +19,7 @@ export default function AccesHistory() {
                 <Text style={{ fontSize: 15, fontWeight: 600 }}>Distribuidoras</Text>
 
                 {
-                    distribuitor == undefined || distribuitor == null ? (
+                    distribuitor == undefined || distribuitor == null || distribuitor?.length < 0 ? (
 
                         <View style={{ justifyContent: "center", alignItems: "center", flex: 1, height: "100%" }}>
                             <LoadingCode />
