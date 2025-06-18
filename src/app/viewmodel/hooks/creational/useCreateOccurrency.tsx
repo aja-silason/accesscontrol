@@ -58,7 +58,7 @@ export const useCreateOccurrency = () => {
             for (const key of isValidate) {
                 if (payload[key] == undefined) {
                     setIsloading(false);
-                    return Alert.alert("Alerta", "Verifique o formulário");
+                    return Alert.alert("Alerta", `Verifique o campo ${key == "driverId" ? "Motorista" : key == "transportId" ? "Veículo" : key == "distribuitorId" ? "Distribuidora" : ""} formulário`);
                 }
             }
             
@@ -68,7 +68,12 @@ export const useCreateOccurrency = () => {
                 }
             })
             
-            console.log(JSON.stringify(payload, null, 2))
+            Alert.alert("Notificação", "Ocorrência  reportada.", [
+                {
+                    text: "Ok",
+                    onPress: () => {}
+                }
+            ]);
 
             setIsloading(true)
             setDatas({ driverId: "", ocurrence: "", plataformId: "", transportId: "", supervisorId: "" });

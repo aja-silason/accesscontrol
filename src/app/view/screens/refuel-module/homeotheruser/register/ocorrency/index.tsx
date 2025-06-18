@@ -15,7 +15,7 @@ export default function Ocorrency() {
     const { datas, handleSubmit, isLoading, distribuitor, setDistribuitor, distribuitorData, handleChange }: any = useCreateOccurrency();
 
     return (
-        <ScrollView style={{ height: "100%", backgroundColor: "#fff" }}>
+        <ScrollView style={{ height: "100%", backgroundColor: "#fff" }} showsVerticalScrollIndicator={false}>
 
             <HeaderIn title="Ocorrências" back="yes" />
 
