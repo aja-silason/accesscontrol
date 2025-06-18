@@ -22,19 +22,32 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-router",
-      ["expo-camera",
-      {
+      [
+        "expo-camera",
+        {
           "cameraPermission": "Conceder acesso a camera",
           "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
           "recordAudioAndroid": true
-      }]
-    ]
+        }
+      ]
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "89169d62-f6bf-49cf-a854-72b749a1a19f"
+      }
+    },
+    "owner": "anania_augusto"
   }
 }
