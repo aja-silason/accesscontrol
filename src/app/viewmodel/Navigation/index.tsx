@@ -10,6 +10,8 @@ import QRread from "@/app/view/screens/accesscontrol-module/home/readqr";
 import AccessEntry from "@/app/view/screens/accesscontrol-module/home/entry/accesshistory";
 import RecentAccessEntry from "@/app/view/screens/accesscontrol-module/home/recentEntrance";
 import AccesHistory from "@/app/view/screens/accesscontrol-module/accesshistory/historydistribuitor/entrance";
+import HomeRefuel from "@/app/view/screens/refuel-module/homeotheruser";
+import UserRefuelTabs from "../layout/user-refuel-tabs";
 
 export default function Navigation () {
 
@@ -33,7 +35,7 @@ export default function Navigation () {
                         
                     </>
                 ) : user?.login?.role?.role == "B" ? (
-                    <stack.Screen name="login" component={LoginScreen} options={{headerShown: false, statusBarStyle: "dark", headerTransparent: true}}/>
+                    <stack.Screen name="refuelControll" component={UserRefuelTabs} options={{headerShown: false, statusBarStyle: "dark", headerTransparent: true}}/>
                 ) : (
                     <stack.Screen name="login" component={LoginScreen} options={{headerShown: false, statusBarStyle: "dark", headerTransparent: true}}/>
                 )

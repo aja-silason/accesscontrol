@@ -11,9 +11,9 @@ import { routing } from "@/app/viewmodel/services/Navegation";
 import { useAuth } from "@/app/viewmodel/context/AuthContext";
 import { useEffect } from "react";
 
-export default function Home(){
+export default function HomeRefuel(){
 
-    const {user, login, logout} = useAuth();
+    const {user} = useAuth();
 
     if(!user) {
         routing.handleRouteLogin();
