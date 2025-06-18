@@ -11,85 +11,12 @@ import { useAuth } from "@/app/viewmodel/context/AuthContext";
 import axios from "axios";
 import { API_URL } from "@/app/viewmodel/utils/server/enpoint";
 import { ContainerLessMenuLessGradiente } from "../../../../../components/container";
-
-type typePayload = {
-    distribuitorId: string,
-    quantity: string,
-    plataformId: string,
-    productId: string,
-    driverCode: string,
-    vehicleCode: string,
-    observations: string,
-
-}
+import { useCreateSupplie } from "@/app/viewmodel/hooks/creational/useCreateSupplie";
 
 
 export default function Supplie() {
-    const [distribuitor, setDistribuitor] = useState<string>();
-    const [product, setProduct] = useState<string>();
-    const [eigth, setEigth] = useState<string>();
-    const [isLoading, setIsloading] = useState(false);
-    const [searchDriver, setSearchDriver] = useState("");
-    const [searchVehicle, setSearchVehicle] = useState("");
-    const [observation, setObservation] = useState("");
- 
-    const {data: option} = useGetDatas("distribuitor");
-    const {data: option2} = useGetDatas("product");
-    const {data: driver} = useGetDatas("driver");
-    const {data: vehicle} = useGetDatas("transport");
-
-    if(!option || !option2 || !driver || !vehicle) return null
-
-    const {user} = useAuth()
-      
-    const distribuitorData: any = option?.map((item:any) => ({label: item?.distribuitor, value: item?.id, id: item?.id}));
-
-    const productData: any = option2?.map((item:any) => ({label: item?.product, value: item?.id, id: item?.id}));
-      
-    const driverdata: any = driver?.filter((data: any) => data?.driverCode?.toLowerCase()?.includes(searchDriver.toLocaleLowerCase()))
-
-    const vehicledata: any = vehicle?.filter((data: any) => data?.driverCode?.toLowerCase()?.includes(searchVehicle.toLocaleLowerCase()))
-
-      const handleSubmit = async () => {
-          setIsloading(true)
-          try {
-            
-            const payload = {
-                distribuitorId: distribuitor,
-                quantity: eigth, 
-                plataformId: user?.login?.plataform?.id,
-                productId: product,
-                driverCode: driverdata[0]?.id,
-                vehicleCode: vehicledata[0]?.id,
-                observations: observation,
-
-            }
-
-            const isValidate: Array<keyof typePayload> = ["distribuitorId", "driverCode", "observations", "plataformId", "productId", "quantity", "vehicleCode"];
-            for(const key of isValidate){
-                if(payload[key] == undefined ){
-                    setIsloading(false);
-                    return Alert.alert("Alerta", "Verifique o formulário");
-                }
-            }
-
-            await axios.post(`${API_URL}supply`, payload, {
-                headers: {
-                    Authorization: `Bearer ${user?.authorizationToken}`
-                }
-            })
-
-          setIsloading(true)
-
-        } catch (error) {
-            console.log("Alerta de erro na app", error);
-        }finally{
-            setIsloading(false);
-        }
-
-
-      }
     
+    const { datas, handleSubmit, product, distribuitor, setProduct, setDistribuitor, distribuitorData, productData, handleChange, isLoading }: any = useCreateSupplie();
 
   return (
 
@@ -118,12 +45,12 @@ export default function Supplie() {
 
                 <InputContainer>
                     <InputContainer.Field>Código do Motorista</InputContainer.Field>
-                    <InputContainer.Input place="" value={searchDriver} onChangeText={(driverfield: any)=> setSearchDriver(driverfield)}/>
+                    <InputContainer.Input place="" value={datas?.driverId} onChangeText={(driverfield: any)=> handleChange("driverId", driverfield)}/>
                 </InputContainer>
 
                 <InputContainer>
                     <InputContainer.Field>Código do Veículo</InputContainer.Field>
-                    <InputContainer.Input place="" value={searchVehicle} onChangeText={(vehiclefield: any)=> setSearchVehicle(vehiclefield)}/>
+                    <InputContainer.Input place="" value={datas?.vehicleId} onChangeText={(vehiclefield: any)=> handleChange("vehicleId", vehiclefield)}/>
                 </InputContainer>
 
                 <SelectContainer.Field>Produto</SelectContainer.Field>
@@ -138,12 +65,12 @@ export default function Supplie() {
 
                 <InputContainer>
                     <InputContainer.Field>Litros</InputContainer.Field>
-                    <InputContainer.Input place="Em 1000 litros" value={eigth} onChangeText={(eigth: any)=> setEigth(eigth)}/>
+                    <InputContainer.Input place="Em 1000 litros" value={datas?.quantity} onChangeText={(quantity: any)=> handleChange("quantity", quantity)}/>
                 </InputContainer>
 
                 <InputContainer>
                     <InputContainer.Field>Observação</InputContainer.Field>
-                    <InputContainer.Input place="" value={observation} onChangeText={(observation: any)=> setObservation(observation)}/>
+                    <InputContainer.Input place="" value={datas?.observations} onChangeText={(observation: any)=> handleChange("observations", observation)}/>
                 </InputContainer>
 
                 {

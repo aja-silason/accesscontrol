@@ -17,12 +17,7 @@ type typePayload = {
 export const useCreateOccurrency = () => {
 
     const [distribuitor, setDistribuitor] = useState<string | null>();
-    const [product, setProduct] = useState<string>();
-    const [eigth, setEigth] = useState<string>();
     const [isLoading, setIsloading] = useState(false);
-    const [searchDriver, setSearchDriver] = useState("");
-    const [searchVehicle, setSearchVehicle] = useState("");
-    const [ocorrence, setOcorrence] = useState("");
 
     const [datas, setDatas] = useState<typePayload>({ driverId: "", ocurrence: "", plataformId: "", transportId: "", supervisorId: "" });
 
