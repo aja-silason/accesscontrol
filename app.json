@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "accesscontrol",
-    "slug": "accesscontrol",
-    "scheme": "accesscontrol",
-    "version": "1.0.0",
+    "name": "Controlo de Acesso",
+    "slug": "controlodeacesso",
+    "scheme": "controlodeacesso",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
