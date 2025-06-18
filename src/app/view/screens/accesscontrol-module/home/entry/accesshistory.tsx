@@ -35,10 +35,10 @@ export default function AccessEntry() {
   return (
     <View>
         
-        <HeaderLessGradient title={`${id}`} back="gradiente"/>
+        <HeaderLessGradient title={payload?.distributor?.distribuitor} back="gradiente"/>
         <ContainerLessMenu>
             <View style={Styles.mergeThingCard}>
-                <CardDetails/>
+                <CardDetails data={payload}/>
             </View>
 
             <View style={Styles.mergeThing}>
@@ -54,27 +54,9 @@ export default function AccessEntry() {
 
                         {
                             isDriver ? (
-                                <FlatList
-                                    data={mockCars}
-                                    keyExtractor={(item: any) => item.id}
-                                    renderItem={({ item }) => (
-                                        <View>
-                                            <CardList brandOfCar="João" date="10 de Ago. às 09:50" distribuitor="Martins" matricula="LD-41-23-XI" portOfCar="Tanque" typeOfCar="Caminhão"/>
-                                            
-                                        </View>
-                                    )
-                                } showsVerticalScrollIndicator={false}/>
+                                <CardList brandOfCar={payload?.drivers?.bilhete} date={payload?.createdAt} distribuitor={payload?.drivers?.driver?.toUpperCase()} matricula="" portOfCar="" typeOfCar={payload?.drivers?.drivingLicenceNumber}/>
                             ) : (
-                                <FlatList
-                                    data={mockCars}
-                                    keyExtractor={(item: any) => item.id}
-                                    renderItem={({ item }) => (
-                                        <View>
-                                            <CardList brandOfCar="Volvo" date="10 de Ago. às 09:50" distribuitor="Pumangol" matricula="LD-41-23-XI" portOfCar="Tanque" typeOfCar="Caminhão"/>
-                                            
-                                        </View>
-                                    )
-                                } showsVerticalScrollIndicator={false}/>
+                                <CardList brandOfCar={payload?.transports?.registration} date={payload?.createdAt} distribuitor={payload?.transports?.brand?.toUpperCase()} matricula="" portOfCar="" typeOfCar={payload?.transports?.color}/>
                             )
                         }
 

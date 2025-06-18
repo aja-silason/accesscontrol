@@ -61,7 +61,8 @@ export const CardList = ({distribuitor, brandOfCar, date, matricula, portOfCar, 
 }
 
 
-export const CardDetails = () => {
+
+export const CardDetails = ({data}: any) => {
     return (
         <View style={Styles.containerCardDetails}>
             <View style={Styles.inner}>
