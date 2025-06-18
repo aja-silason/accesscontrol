@@ -9,14 +9,14 @@ type typePayload = {
     distribuitorId?: string,
     supervisorId: string,
     plataformId: string,
-    driverCode: string,
-    transportCode: string,
+    driverId: string,
+    transportId: string,
     ocurrence: string
 }
 
 export const useCreateOccurrency = () => {
 
-    const [distribuitor, setDistribuitor] = useState<string>();
+    const [distribuitor, setDistribuitor] = useState<string | null>();
     const [product, setProduct] = useState<string>();
     const [eigth, setEigth] = useState<string>();
     const [isLoading, setIsloading] = useState(false);
@@ -24,7 +24,7 @@ export const useCreateOccurrency = () => {
     const [searchVehicle, setSearchVehicle] = useState("");
     const [ocorrence, setOcorrence] = useState("");
 
-    const [datas, setDatas] = useState<typePayload>({ driverCode: "", ocurrence: "", plataformId: "", transportCode: "", supervisorId: "" });
+    const [datas, setDatas] = useState<typePayload>({ driverId: "", ocurrence: "", plataformId: "", transportId: "", supervisorId: "" });
 
     const { data: option } = useGetDatas("distribuitor");
     const { data: driver } = useGetDatas("driver");
@@ -36,9 +36,9 @@ export const useCreateOccurrency = () => {
 
     const distribuitorData: any = option?.map((item: any) => ({ label: item?.distribuitor, value: item?.id, id: item?.id }));
 
-    const driverdata: any = driver?.filter((data: any) => data?.authorizationCode?.toLowerCase()?.includes(datas?.driverCode?.toLocaleLowerCase()))
+    const driverdata: any = driver?.filter((data: any) => data?.authorizationCode?.toLowerCase()?.includes(datas?.driverId?.toLocaleLowerCase()))
 
-    const vehicledata: any = vehicle?.filter((data: any) => data?.authorizationCode?.toLowerCase()?.includes(datas?.transportCode.toLocaleLowerCase()))
+    const vehicledata: any = vehicle?.filter((data: any) => data?.authorizationCode?.toLowerCase()?.includes(datas?.supervisorId.toLocaleLowerCase()))
 
     const handleChange = (name: string, value: string) => {
         setDatas((prevState: any) => ({ ...prevState, [name]: value }))
@@ -52,31 +52,32 @@ export const useCreateOccurrency = () => {
                 distribuitorId: distribuitor,
                 supervisorId: user?.login?.id,
                 plataformId: user?.login?.plataform?.id,
-                driverCode: driverdata[0]?.id,
-                transportCode: vehicledata[0]?.id,
+                driverId: driverdata[0]?.id,
+                transportId: vehicledata[0]?.id,
                 ocurrence: datas?.ocurrence,
 
             }
 
-            console.log(JSON.stringify(payload, null, 2))
-
-            const isValidate: Array<keyof typePayload> = ["distribuitorId", "driverCode", "ocurrence", "plataformId", "supervisorId", "transportCode"];
+            
+            const isValidate: Array<keyof typePayload> = ["distribuitorId", "driverId", "ocurrence", "plataformId", "supervisorId", "transportId"];
             for (const key of isValidate) {
                 if (payload[key] == undefined) {
                     setIsloading(false);
                     return Alert.alert("Alerta", "Verifique o formulário");
                 }
             }
-
+            
             await axios.post(`${API_URL}occurences`, payload, {
                 headers: {
                     Authorization: `Bearer ${user?.authorizationToken}`
                 }
             })
-
+            
+            console.log(JSON.stringify(payload, null, 2))
 
             setIsloading(true)
-            setDatas({ driverCode: "", ocurrence: "", plataformId: "", transportCode: "", supervisorId: "" });
+            setDatas({ driverId: "", ocurrence: "", plataformId: "", transportId: "", supervisorId: "" });
+            setDistribuitor(null)
 
         } catch (error) {
 
