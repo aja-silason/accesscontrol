@@ -36,11 +36,12 @@ export default function Home() {
                         <CardHome icon={<WriteIconSvg />} title="Digitar Código" />
                     </TouchableOpacity>
 
-                    <TouchableOpacity activeOpacity={0.9} onPress={() => navigate.navigate("qrcoderead")} style={{ width: "50%" }}>
-                        <CardHome icon={<QRIconSvg />} title="Ler o Código QR" />
+                    <TouchableOpacity activeOpacity={0.9} onPress={() => navigate.navigate("entercodedriver")} style={{ width: "50%" }}>
+                        <CardHome icon={<WriteIconSvg />} title="Digitar Código" />
                     </TouchableOpacity>
 
                 </View>
+
                 <View style={Styles.viewlist}>
                     <Text style={Styles.title}>Entradas recentes</Text>
 
@@ -49,28 +50,26 @@ export default function Home() {
                     </View>
                     <View style={Styles.viewListCards}>
                         <ScrollView style={{ backgroundColor: "#fff" }}>
-                            { entrance?.length == 0 ? (
+                            {entrance?.length == 0 ? (
                                 <LoadingCode />
                             ) : (
-                                entrance?.length > 0 ? entrance?.map((item: any) => (
+                                entrance?.length > 0 ? entrance?.map((item: any, index: number) => (
                                     <View>
                                         {
-                                            //item?.map((item: any) => (
-                                                <TouchableOpacity onPress={() => navigate?.navigate("recentaccessentry", {payload: item})} activeOpacity={0.8}>
-                                                    <CardList brandOfCar={item?.adress} date={item?.createdAt} distribuitor={item?.plataform} matricula={item?.owner} portOfCar={item.owner} typeOfCar={item.owner} />
-                                                </TouchableOpacity>
-                                            //))
+                                            <TouchableOpacity onPress={() => navigate?.navigate("recentaccessentry", { payload: item })} activeOpacity={0.8}>
+                                                <CardList brandOfCar={item?.adress} date={item?.createdAt} distribuitor={item?.plataform} matricula={item?.owner} portOfCar={item.owner} typeOfCar={item.owner} key={index}/>
+                                            </TouchableOpacity>
                                         }
                                     </View>
                                 )
 
                                 ) : (
                                     <View style={{ alignItems: "center", justifyContent: "center", height: "100%" }}>
-                                        <EmptyContentSvg width={90} height={90}/>
+                                        <EmptyContentSvg width={90} height={90} />
                                         <Text style={{ color: "#ccc", textAlign: "center" }}>Sem dados para apresentar{"\n"} no momento</Text>
                                     </View>
                                 )
-                                
+
                             )
 
                             }

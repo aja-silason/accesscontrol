@@ -54,6 +54,7 @@ export default function EnterCodeConcluited() {
 
     const finnaly = async () => {
         await AsyncStorage.removeItem("entranceData");
+        //navigate.navigate("checklist");
         navigate.navigate("accessControll");
     }
 

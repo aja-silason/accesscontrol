@@ -16,6 +16,7 @@ import Ocorrency from "@/app/view/screens/refuel-module/homeotheruser/register/o
 import Supplie from "@/app/view/screens/refuel-module/homeotheruser/register/supplie";
 import UserGuide from "@/app/view/screens/accesscontrol-module/settings/userguide";
 import PrivaciesAndTerms from "@/app/view/screens/accesscontrol-module/settings/policiesandterms";
+import CheckList from "@/app/view/screens/accesscontrol-module/home/checklist/checklist";
 
 export default function Navigation() {
 
@@ -38,6 +39,7 @@ export default function Navigation() {
                         <stack.Screen name="accessehistoryentrance" component={AccesHistory} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
                         <stack.Screen name="userguidea" component={UserGuide} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
                         <stack.Screen name="policyterma" component={PrivaciesAndTerms} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
+                        <stack.Screen name="checklist" component={CheckList} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
                     </>
                 ) : user?.login?.role?.role == "B" ? (
                     <>
