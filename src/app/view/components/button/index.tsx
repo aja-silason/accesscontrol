@@ -16,7 +16,7 @@ export const Button = ({text, onClick, link = "", disabled}: buttonProp) => {
     return (
         <View style={Styles.styilg}>
             <TouchableOpacity activeOpacity={.8} onPress={onClick} 
-            style={Styles.btn} disabled={disabled}>
+            style={[Styles.btn, disabled && Styles.inactive]} disabled={disabled}>
                 <Text style={Styles.btnText}>{text}</Text>
             </TouchableOpacity>
         </View>

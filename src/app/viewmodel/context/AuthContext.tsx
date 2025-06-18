@@ -3,7 +3,7 @@ import React, { createContext, useState, useContext, ReactNode, useEffect } from
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { API_URL } from '@/app/viewmodel/utils/server/enpoint';
-import { Alert } from 'react-native';
+import { Alert, Platform } from 'react-native';
 
 type AuthContextProps = {
   user: any
@@ -26,18 +26,19 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const login = async (email: any, password: any) => {
 
-  
+
 
     try {
+      setIsLoading(true);
 
       const payload: dataAccess = {
         login: email,
         password: password
       }
 
-    const isAccess: Array<keyof dataAccess> = ['password', 'login'];
-    for(const key of isAccess) {
-        if(payload[key] === "" || payload[key] == undefined || payload[key] == " " ){
+      const isAccess: Array<keyof dataAccess> = ['password', 'login'];
+      for (const key of isAccess) {
+        if (payload[key] === "" || payload[key] == undefined || payload[key] == " ") {
           return Alert.alert("Aviso", "Dados incorrectos", [
             {
               text: "Tentar novamente",
@@ -45,31 +46,50 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             }
           ]);
         }
-    }
-
-      console.log("user data: ", payload);
-
-      setIsLoading(true);
-      
-      const {data} = await axios.post(`${API_URL}user/login`, payload);
-
-      if(data?.response?.status == 400){
-        Alert.alert("Aviso", "Acesso não permitido"); 
       }
-      console.log(data);
+
+      const { data } = await axios.post(`${API_URL}user/login`, payload);
+
+      if (data?.response?.status == 400) {
+        Alert.alert("Aviso", "Acesso não permitido");
+      }
       const user = data;
       await AsyncStorage.setItem('user', JSON.stringify(user));
       setUser(user);
-      
-    } catch (error) {
-      console.log("BBbnnn", error);
-      Alert.alert("Aviso", "Acesso não permitido"); 
       setIsLoading(false);
-    } finally{
+
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          if (error?.code?.includes("ERR_BAD_REQUEST")) {
+            if (Platform.OS == "web") alert("Alguma coisa correu mal, estamos resolvendo por você");
+            Alert?.alert("Aviso", "Alguma coisa correu mal, estamos resolvendo por você");
+            //return
+          } else {
+            //Alert.alert("Erro", message);
+            if (Platform.OS == "web") alert("Alguma coisa correu mal, estamos resolvendo por você");
+            Alert.alert("Aviso", "Alguma coisa correu mal, estamos resolvendo por você");
+          }
+        } else if (error?.status == 201) {
+          if (Platform.OS == "web") alert("Aplicado com sucesso");
+          Alert.alert("Sucesso", "Aplicado com sucesso");
+          return;
+        } else if (error.request) {
+          if (Platform.OS == "web") alert("Verifique a sua conexão com a internet");
+          Alert.alert("Aviso", "Verifique a sua conexão com a internet");
+        }
+      } else if (error instanceof TypeError) {
+        if (Platform.OS == "web") alert("Erro de rede ou resposta inválida");
+        Alert.alert("Aviso", "Erro de rede ou resposta inválida");
+      } else {
+        if (Platform.OS == "web") alert("Alguma coisa correu mal, estamos resolvendo por você");
+        Alert.alert("Aviso", "Alguma coisa correu mal, estamos resolvendo por você");
+      }
+    } finally {
       setIsLoading(false);
     }
 
-}
+  }
 
   const logout = async () => {
     await AsyncStorage.removeItem('user');

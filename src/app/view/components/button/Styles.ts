@@ -13,6 +13,9 @@ export const Styles = StyleSheet.create({
         marginVertical: "1%",
         paddingHorizontal: 15
     },
+    inactive: {
+        backgroundColor: "#ccc"
+    },
     btnIcon: {
         backgroundColor: Colors.orange[200],
         height: 50,
