@@ -35,9 +35,9 @@ export default function Settings(){
 
                 <View style={Styles.innerBtn}>
                     {/*<ButtonIn text="Segurança" onClick={routing.handleRouteChangePassword}/>*/}
-                    <ButtonIn text="Termos de uso e políticas de privacidade" onClick={() => {}}/>
+                    <ButtonIn text="Termos de uso e políticas de privacidade" onClick={() => user?.login?.role?.role.toLowerCase() == "a" ? navigate.navigate("policyterma") : navigate.navigate("policytermb")}/>
                     {/*routing.handleRoutePrivaciesAndTerms*/}
-                    <ButtonIn text="Guia de utilização" onClick={() => {}}/>
+                    <ButtonIn text="Guia de utilização" onClick={() => user?.login?.role?.role.toLowerCase() == "a" ? navigate.navigate("userguidea") : navigate.navigate("userguideb")}/>
                     {/*routing.handleRouteUserGuide*/}
                 </View>
 

@@ -14,6 +14,8 @@ import HomeRefuel from "@/app/view/screens/refuel-module/homeotheruser";
 import UserRefuelTabs from "../layout/user-refuel-tabs";
 import Ocorrency from "@/app/view/screens/refuel-module/homeotheruser/register/ocorrency";
 import Supplie from "@/app/view/screens/refuel-module/homeotheruser/register/supplie";
+import UserGuide from "@/app/view/screens/accesscontrol-module/settings/userguide";
+import PrivaciesAndTerms from "@/app/view/screens/accesscontrol-module/settings/policiesandterms";
 
 export default function Navigation() {
 
@@ -34,13 +36,17 @@ export default function Navigation() {
                         <stack.Screen name="recentaccessentry" component={RecentAccessEntry} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
                         <stack.Screen name="accessentry" component={AccessEntry} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
                         <stack.Screen name="accessehistoryentrance" component={AccesHistory} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
-
+                        <stack.Screen name="userguidea" component={UserGuide} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
+                        <stack.Screen name="policyterma" component={PrivaciesAndTerms} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
                     </>
                 ) : user?.login?.role?.role == "B" ? (
                     <>
                         <stack.Screen name="refuelControll" component={UserRefuelTabs} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
                         <stack.Screen name="entersupplie" component={Supplie} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
                         <stack.Screen name="enteroccorrency" component={Ocorrency} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
+                        <stack.Screen name="userguideb" component={UserGuide} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
+                        <stack.Screen name="policytermb" component={PrivaciesAndTerms} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
+                        
                     </>
                 ) : (
                     <stack.Screen name="login" component={LoginScreen} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />

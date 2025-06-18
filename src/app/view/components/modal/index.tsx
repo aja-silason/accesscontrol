@@ -55,7 +55,7 @@ export function Modal({
                             <Image source={require("@/assets/profileimage/profile.png")} style={Styles.ImageProfile}/>
                             <View>
                                 <Text style={Styles.title}>{usename}</Text>
-                                <Text style={Styles.subtitle}>{role}</Text>
+                                <Text style={Styles.subtitle}>{role?.toLowerCase() == "a" ? "Controlo de Acesso" : "Ocorrência"}</Text>
                             </View>
                         </View>
                         <View>
