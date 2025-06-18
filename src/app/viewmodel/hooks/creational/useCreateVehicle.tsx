@@ -110,7 +110,6 @@ export const useCreatevehicleEntrance = () => {
                 }
             });
 
-            console.log("Aqui", payload)
     
             if(data?.text?.status === 200){
                 return Alert.alert("Aviso", "Veículo autorizado", [

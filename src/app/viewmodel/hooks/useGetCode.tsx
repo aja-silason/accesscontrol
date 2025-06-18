@@ -43,9 +43,6 @@ export const useGetDriverCode = async () => {
       setCode(newDriverCode);
     }, [values]);
 
-    
-    console.log("Valor:", code);
-
 
     
     const data = {

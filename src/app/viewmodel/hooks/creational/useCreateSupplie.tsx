@@ -28,13 +28,13 @@ export const useCreateSupplie = () => {
 
     const [datas, setDatas] = useState<typePayload>({ distribuitorId: "", driverCode: "", observations: "", plataformId: "", productId: "", quantity: "", vehicleCode: "", tanksId: "" })
 
-    const { user } = useAuth()
+    const { user, isLoading: principalloading } = useAuth()
 
-    const { data: option } = useGetDatas("distribuitor");
-    const { data: option2 } = useGetDatas("product");
-    const { data: driver } = useGetDatas("driver");
-    const { data: vehicle } = useGetDatas("transport");
-    const { data: endpointtank }: any = useGetDatas(`platform/key/${user?.login?.plataform?.id}`);
+    const { data: option } = useGetDatas(principalloading || !user ? null : "distribuitor");
+    const { data: option2 } = useGetDatas(principalloading || !user ? null : "product");
+    const { data: driver } = useGetDatas(principalloading || !user ? null : "driver");
+    const { data: vehicle } = useGetDatas(principalloading || !user ? null : "transport");
+    const { data: endpointtank }: any = useGetDatas(principalloading || !user ? null : `platform/key/${user?.login?.plataform?.id}`);
 
     if (!option || !option2 || !driver || !vehicle) return null
 
@@ -45,12 +45,6 @@ export const useCreateSupplie = () => {
 
     const tankData = endpointtank?.tanks?.map((item: any) => ({ label: item?.tank, value: item?.id, id: item?.id }));
 
-    const navigate: any = useNavigation();
-
-    //const driverdata: any = driver?.filter((data: any) => data?.authorizationCode?.toLowerCase()?.includes(datas?.driverCode.toLocaleLowerCase()))
-
-    //const vehicledata: any = vehicle?.filter((data: any) => data?.authorizationCode?.toLowerCase()?.includes(datas?.vehicleCode.toLocaleLowerCase()))
-
     const handleChange = (name: string, value: string) => {
         setDatas((prevState) => ({
             ...prevState, [name]: value
@@ -60,17 +54,6 @@ export const useCreateSupplie = () => {
     const handleSubmit = async () => {
         setIsloading(true)
         try {
-
-            /*const payload = {
-                distribuitorId: distribuitor,
-                quantity: datas?.quantity,
-                plataformId: user?.login?.plataform?.id,
-                productId: product,
-                driverCode: driverdata[0]?.id,
-                vehicleCode: vehicledata[0]?.id,
-                observations: datas?.observations,
-
-            }*/
 
             const payload = {
                 distribuitorId: distribuitor,

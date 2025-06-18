@@ -1,15 +1,12 @@
-import { Switch, Text, View } from "react-native";
+import { View } from "react-native";
 import { ContainerLessMenuLessGradiente } from "../../../../components/container";
 import { HeaderIn } from "@/app/view/components/header";
 import { Button } from "@/app/view/components/button";
 import { Style } from "./style";
 import { InputContainer } from "@/app/view/components/input/input";
-import { useState } from "react";
-
 
 export default function ChangePassword() {
-    const [value, setValue] = useState('first');
-
+    
   return (
     <View>
         

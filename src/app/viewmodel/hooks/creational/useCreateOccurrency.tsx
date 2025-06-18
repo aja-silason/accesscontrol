@@ -21,13 +21,14 @@ export const useCreateOccurrency = () => {
 
     const [datas, setDatas] = useState<typePayload>({ driverId: "", ocurrence: "", plataformId: "", transportId: "", supervisorId: "" });
 
-    const { data: option } = useGetDatas("distribuitor");
-    const { data: driver } = useGetDatas("driver");
-    const { data: vehicle } = useGetDatas("transport");
+    const { user, isLoading: principalloading } = useAuth();
+
+    const { data: option } = useGetDatas(principalloading || !user ? null : "distribuitor");
+    const { data: driver } = useGetDatas(principalloading || !user ? null : "driver");
+    const { data: vehicle } = useGetDatas(principalloading || !user ? null : "transport");
 
     if (!option || !driver || !vehicle) return null
 
-    const { user } = useAuth();
 
     const distribuitorData: any = option?.map((item: any) => ({ label: item?.distribuitor, value: item?.id, id: item?.id }));
 
