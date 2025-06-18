@@ -2,12 +2,11 @@ import { Image, Text, View } from "react-native"
 import { Styles } from "./Style";
 import { ButtonIn } from "@/app/view/components/button";
 import Container from "../../../components/container";
-import { routing } from "@/app/viewmodel/services/Navegation";
 import { useAuth } from "@/app/viewmodel/context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
 
 export default function Settings(){
-    const {user, login, logout} = useAuth();
+    const {user} = useAuth();
     
     const navigate: any = useNavigation();
 
@@ -16,9 +15,6 @@ export default function Settings(){
         navigate.replace("login")
     }
 
-
-    console.log(JSON.stringify(user?.login?.role?.role, null, 2))
-    
     return (
             <Container>
             <View style={Styles.paddingThing}>
@@ -36,9 +32,7 @@ export default function Settings(){
                 <View style={Styles.innerBtn}>
                     {/*<ButtonIn text="Segurança" onClick={routing.handleRouteChangePassword}/>*/}
                     <ButtonIn text="Termos de uso e políticas de privacidade" onClick={() => user?.login?.role?.role.toLowerCase() == "a" ? navigate.navigate("policyterma") : navigate.navigate("policytermb")}/>
-                    {/*routing.handleRoutePrivaciesAndTerms*/}
                     <ButtonIn text="Guia de utilização" onClick={() => user?.login?.role?.role.toLowerCase() == "a" ? navigate.navigate("userguidea") : navigate.navigate("userguideb")}/>
-                    {/*routing.handleRouteUserGuide*/}
                 </View>
 
             </View>

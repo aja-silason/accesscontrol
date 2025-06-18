@@ -1,18 +1,14 @@
-import { Switch, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { HeaderIn } from "@/app/view/components/header";
-import { Button, ButtonWithIcon } from "@/app/view/components/button";
+import { ButtonWithIcon } from "@/app/view/components/button";
 import { Style } from "./style";
-import { InputContainer } from "@/app/view/components/input/input";
-import { useState } from "react";
 import FuelSVG from "@/app/view/components/svg/Fuel";
 import CautionSvg from "@/app/view/components/svg/CautionSvg";
-import { routing } from "@/app/viewmodel/services/Navegation";
 import { ContainerLessMenuLessGradiente } from "../../../../components/container";
 import { useNavigation } from "@react-navigation/native";
 
 
 export default function Ocorrency() {
-    const [value, setValue] = useState('first');
 
     const navigate: any = useNavigation();
 

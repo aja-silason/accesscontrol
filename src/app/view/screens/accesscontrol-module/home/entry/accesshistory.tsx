@@ -19,7 +19,6 @@ export default function AccessEntry() {
   const handleIsDriver = () => {
     setIsDriver(!isDriver); 
     setIsTransport(false);
-    console.log(`isDriver esta ${isDriver} e o transport esta ${isTransport}`);
   }
   const handleIsTransport = () => {
     setIsTransport(!isTransport);

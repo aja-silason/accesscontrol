@@ -9,6 +9,7 @@ import { useGetDatas } from "@/app/viewmodel/hooks/useGetDatas";
 import { useNavigation } from "@react-navigation/native";
 import EmptyContentSvg from "@/app/view/components/svg/EmptyContent";
 import { Loading, LoadingCode } from "@/app/view/components/loading";
+import { useAuth } from "@/app/viewmodel/context/AuthContext";
 
 type cardProps = {
     title: string;
@@ -18,7 +19,9 @@ type cardProps = {
 
 export default function Home() {
 
-    const { data: plataform } = useGetDatas("platform");
+    const {user, isLoading: principalloading } = useAuth();
+
+    const { data: plataform } = useGetDatas(principalloading || !user ? null : "platform");
 
     const entrance = plataform?.map((plataform: any) => plataform);
 

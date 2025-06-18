@@ -6,10 +6,13 @@ import Container from "../../../components/container";
 import { useGetDatas } from "@/app/viewmodel/hooks/useGetDatas";
 import SearchContentSvg from "@/app/view/components/svg/SearchContent";
 import { LoadingCode } from "@/app/view/components/loading";
+import { useAuth } from "@/app/viewmodel/context/AuthContext";
 
 export default function AccesHistory() {
 
-    const { data: distribuitor } = useGetDatas("distribuitor");
+    const {user, isLoading: principalloading} = useAuth();
+
+    const { data: distribuitor } = useGetDatas(principalloading || !user ? null : "distribuitor");
 
     const navigate: any = useNavigation();
 

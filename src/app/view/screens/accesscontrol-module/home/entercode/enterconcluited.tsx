@@ -42,9 +42,9 @@ export default function EnterCodeConcluited() {
 
     useEffect(() => {
         const getEntrance = async () => {
-            const entranceData = await AsyncStorage.getItem("entranceData");
+            const entranceData = await AsyncStorage?.getItem("entranceData");
             if(entranceData) {
-                const parseData = JSON.parse(entranceData);
+                const parseData = JSON?.parse(entranceData);
                 setDataEntrance(parseData);
             }
         };
@@ -53,7 +53,9 @@ export default function EnterCodeConcluited() {
     }, [])
 
     const finnaly = async () => {
-        await AsyncStorage.removeItem("entranceData");
+        await AsyncStorage?.removeItem("entranceData");
+
+        //caso se tenha os endpoints da checklist a gente vaidar o devido tratamento
         //navigate.navigate("checklist");
         navigate.navigate("accessControll");
     }

@@ -27,8 +27,7 @@ enum STATE {
 export default function QRread(){
 
     const [permission, requestPermission] = useCameraPermissions();
-    const { showModal } = useContext(ModalContext);
-
+    
     const [scan, setScan] = useState<string | null>(null);
     const [driver, setDriver] = useState<string | any>()
     const [vehicle, setVehicle] = useState<string | any>()
@@ -41,8 +40,6 @@ export default function QRread(){
     const [text2, setText2] = useState<string>();
 
     const {user } = useAuth();
-
-    const {data: driversdata} = useGetDatas("driver");
 
     const navigate: any = useNavigation();
         

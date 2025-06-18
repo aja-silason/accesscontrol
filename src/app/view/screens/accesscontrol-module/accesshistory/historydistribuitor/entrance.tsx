@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useGetDatas } from "@/app/viewmodel/hooks/useGetDatas";
 import { useRoute } from "@react-navigation/native";
 import { LoadingCode } from "@/app/view/components/loading";
+import { useAuth } from "@/app/viewmodel/context/AuthContext";
 
 
 type cardProps = {
@@ -30,7 +31,6 @@ type cardProps = {
 
 export default function AccesHistory() {
 
-    const { id } = useLocalSearchParams();
     const [isDriver, setIsDriver] = useState(true);
     const [isTransport, setIsTransport] = useState(false);
 
@@ -39,7 +39,9 @@ export default function AccesHistory() {
 
     // const [oneDistribuitor, setOneDistribuitor] = useState<any>([])
 
-    const { data: distribuitor }: any = useGetDatas(`distribuitor/key/${payload?.id}`);
+    const { user, isLoading: principalloading } = useAuth();
+
+    const { data: distribuitor }: any = useGetDatas( principalloading || !user ? null : `distribuitor/key/${payload?.id}`);
     // setOneDistribuitor(distribuitor);
 
     const handleIsDriver = () => {

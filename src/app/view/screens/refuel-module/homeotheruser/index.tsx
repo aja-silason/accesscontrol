@@ -19,7 +19,7 @@ export default function HomeRefuel(){
 
     }
 
-    const { data: plataform }:any = useGetDatas(`platform/key/${user?.login?.plataform?.id}`)
+    const { data: plataform }:any = useGetDatas(!user ? null : `platform/key/${user?.login?.plataform?.id}`)
     
     return (
 

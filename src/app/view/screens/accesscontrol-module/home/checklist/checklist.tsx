@@ -43,7 +43,7 @@ export default function CheckList() {
 
     useEffect(() => {
         const getEntrance = async () => {
-            const entranceData = await AsyncStorage.getItem("entranceData");
+            const entranceData = await AsyncStorage?.getItem("entranceData");
             if (entranceData) {
                 const parseData = JSON.parse(entranceData);
                 setDataEntrance(parseData);
@@ -54,8 +54,8 @@ export default function CheckList() {
     }, [])
 
     const finnaly = async () => {
-        await AsyncStorage.removeItem("entranceData");
-        navigate.navigate("accessControll");
+        await AsyncStorage?.removeItem("entranceData");
+        navigate?.navigate("accessControll");
     }
 
     return (
