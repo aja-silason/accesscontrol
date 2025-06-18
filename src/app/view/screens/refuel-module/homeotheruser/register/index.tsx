@@ -8,24 +8,27 @@ import FuelSVG from "@/app/view/components/svg/Fuel";
 import CautionSvg from "@/app/view/components/svg/CautionSvg";
 import { routing } from "@/app/viewmodel/services/Navegation";
 import { ContainerLessMenuLessGradiente } from "../../../../components/container";
+import { useNavigation } from "@react-navigation/native";
 
 
 export default function Ocorrency() {
     const [value, setValue] = useState('first');
 
+    const navigate: any = useNavigation();
+
   return (
     <View>
         
-        <HeaderIn title="Registros" back="yes"/>
+        <HeaderIn title="Meu Trabalho" back="yes"/>
 
         <ContainerLessMenuLessGradiente>
             <Text style={Style.txtInput}>O que deseja fazer</Text>
             <View style={Style.container}>
-                <ButtonWithIcon onClick={() => routing.handleRouterSupplie()} text="Registar de Abastecimento">
+                <ButtonWithIcon onClick={() => navigate.navigate("entersupplie")} text="Registar de Abastecimento">
                     <FuelSVG/>
                 </ButtonWithIcon>
 
-                <ButtonWithIcon onClick={() => routing.handleRouterOcorrency()} text="Registrar Ocorrências">
+                <ButtonWithIcon onClick={() => navigate.navigate("enteroccorrency")} text="Registrar Ocorrências">
                     <CautionSvg/>
                 </ButtonWithIcon>
 

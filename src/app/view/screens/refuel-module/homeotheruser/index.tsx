@@ -24,8 +24,6 @@ export default function HomeRefuel(){
 
     }
 
-    console.log(user?.login?.plataform?.id);
-
     const { data: plataform }:any = useGetDatas(`platform/key/${user?.login?.plataform?.id}`)
     
     return (

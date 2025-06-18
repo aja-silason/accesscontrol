@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 export const Style = StyleSheet.create({
     txtInput: {
         fontWeight: "700",
-        fontSize: 20,
+        fontSize: 15,
         marginVertical: 10
     },
     container: {
