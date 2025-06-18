@@ -20,23 +20,36 @@ export default function AccesHistory() {
         <Container>
             <View style={Style.viewlist}>
                 <Text style={{ fontSize: 15, fontWeight: 600 }}>Distribuidoras</Text>
-                <FlatList
-                    data={distribuitor}
-                    keyExtractor={(item: any) => item.id}
-                    renderItem={({ item }) => (
-                        <TouchableOpacity onPress={() => navigate.navigate("accessehistoryentrance", { payload: item })} activeOpacity={0.9}>
-                            <CardList brandOfCar={item.distribuitor} date={item.createdAt} distribuitor={item.distribuitor} typeOfCar={item.licenceNumber} />
-                        </TouchableOpacity>
-                    )
-                    } showsVerticalScrollIndicator={false}
-                    ListEmptyComponent={
+
+                {
+                    distribuitor?.length == 0 ? (
+
                         <View style={{ justifyContent: "center", alignItems: "center", flex: 1, height: "100%" }}>
                             <SearchContentSvg width={80} height={80} />
                             <Text>Sem Informações</Text>
                         </View>
-                    }
-                    style={{ height: "100%" }}
-                />
+
+                    ) : (
+
+                        <FlatList
+                            data={distribuitor}
+                            keyExtractor={(item: any) => item.id}
+                            renderItem={({ item }) => (
+                                <TouchableOpacity onPress={() => navigate.navigate("accessehistoryentrance", { payload: item })} activeOpacity={0.9}>
+                                    <CardList brandOfCar={item.distribuitor} date={item.createdAt} distribuitor={item.distribuitor} typeOfCar={item.licenceNumber} />
+                                </TouchableOpacity>
+                            )
+                            } showsVerticalScrollIndicator={false}
+                            ListEmptyComponent={
+                                <View style={{ justifyContent: "center", alignItems: "center", flex: 1, height: "100%" }}>
+                                    <SearchContentSvg width={80} height={80} />
+                                    <Text>Sem Informações</Text>
+                                </View>
+                            }
+                            style={{ height: "100%" }}
+                        />
+                    )
+                }
             </View>
         </Container>
     )

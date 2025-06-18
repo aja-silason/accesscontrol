@@ -34,12 +34,12 @@ export default function AccesHistory() {
     const [isDriver, setIsDriver] = useState(true);
     const [isTransport, setIsTransport] = useState(false);
 
-    const route = useRoute();
+    const route: any = useRoute();
     const { payload } = route?.params;
 
     // const [oneDistribuitor, setOneDistribuitor] = useState<any>([])
 
-    const { data: distribuitor } = useGetDatas(`distribuitor/key/${payload?.id}`);
+    const { data: distribuitor }: any = useGetDatas(`distribuitor/key/${payload?.id}`);
     // setOneDistribuitor(distribuitor);
 
     const handleIsDriver = () => {
@@ -50,12 +50,6 @@ export default function AccesHistory() {
         setIsTransport(!isTransport);
         setIsDriver(false)
     }
-
-
-
-    console.log("Distttttt: ss", distribuitor?.transports);
-
-
 
     return (
         <View>

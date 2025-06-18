@@ -74,29 +74,29 @@ export const CardDetails = ({data}: any) => {
                     <View style={Styles.detailsin}>
                         <View style={Styles.detailsText}>
                             <Text style={Styles.textthin}>Matrícula</Text>
-                            <Text style={Styles.textbold}>LA-43-12-IH</Text>
+                            <Text style={Styles.textbold}>{data?.transports?.registration}</Text>
                         </View>
                         <View style={Styles.detailsText}>
                             <Text style={Styles.textthin}>Distribuidora</Text>
-                            <Text style={Styles.textbold}>GCBA</Text>
+                            <Text style={Styles.textbold}>{data?.distributor?.distribuitor}</Text>
                         </View>
                     </View>
 
                     <View style={Styles.detailsin}>
                         <View style={Styles.detailsText}>
                             <Text style={Styles.textthin}>Modelo do Carro</Text>
-                            <Text style={Styles.textbold}>Corola</Text>
+                            <Text style={Styles.textbold}>{data?.transports?.model}</Text>
                         </View>
                         <View style={Styles.detailsText}>
                             <Text style={Styles.textthin}>Marca de Carro</Text>
-                            <Text style={Styles.textbold}>Toyota</Text>
+                            <Text style={Styles.textbold}>{data?.transports?.brand}</Text>
                         </View>
                     </View>
 
                     <View style={Styles.detailsin}>
                         <View style={Styles.detailsText}>
                             <Text style={Styles.textthin}>Data de Acesso</Text>
-                            <Text style={Styles.textbold}>10/08/2024</Text>
+                            <Text style={Styles.textbold}>{data?.createdAt?.split(',')[0]}</Text>
                         </View>
                     </View>
                 </View>
@@ -108,13 +108,13 @@ export const CardDetails = ({data}: any) => {
                             <Image source={require("@/assets/profileimage/profile.png")} style={Styles.profileimg}/>
                         </View>
                         <View style={Styles.profiledetailstext}>
-                            <Text style={Styles.textbold}>Anania Augusto</Text>
-                            <Text style={Styles.textthin}>Engenheiro de Software</Text>
+                            <Text style={Styles.textbold}>{data?.drivers?.driver}</Text>
+                            <Text style={Styles.textthin}>Motorista</Text>
                         </View>
                     </View>
                     <View style={Styles.profiledetailstext}>
                         <Text style={Styles.textbold}>Carta de Condução</Text>
-                        <Text style={Styles.textthin}>112229232</Text>
+                        <Text style={Styles.textthin}>{data?.drivers?.drivingLicenceNumber}</Text>
                     </View>
                 </View>
             </View>

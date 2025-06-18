@@ -67,7 +67,7 @@ export default function Home() {
                     </View>
                     <View style={Styles.viewListCards}>
                         <ScrollView style={{ backgroundColor: "#fff" }}>
-                            { !entrance ? (
+                            { entrance?.length == 0 ? (
                                 <LoadingCode />
                             ) : (
                                 entrance?.length > 0 ? entrance?.map((item: any) => (
