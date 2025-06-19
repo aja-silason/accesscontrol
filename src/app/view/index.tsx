@@ -14,7 +14,7 @@ export default function LoginScreen() {
   const [textBtn, setTextBtn] = useState("Entrar");
 
   
-  const { user, login, isLoading } = useAuth();
+  const { login, isLoading } = useAuth();
   
   /*if (user) {
     return (

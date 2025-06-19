@@ -25,7 +25,10 @@ export default function Navigation() {
     return (
         <stack.Navigator>
             {
-                user?.login?.role?.role == "A" ? (
+                user == null || user == undefined ? (
+                    <stack.Screen name="login" component={LoginScreen} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
+                ) : (
+                    user?.login?.role?.role == "A" ? (
                     <>
                         <stack.Screen name="accessControll" component={UserAceessControllTabs} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
                         <stack.Screen name="entercodedriver" component={EnterCodeDriver} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
@@ -51,6 +54,8 @@ export default function Navigation() {
                 ) : (
                     <stack.Screen name="login" component={LoginScreen} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
                 )
+            )
+                
             }
         </stack.Navigator>
     )
