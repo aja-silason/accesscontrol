@@ -18,46 +18,43 @@ import CheckList from "@/app/view/screens/accesscontrol-module/home/checklist/ch
 
 export default function Navigation() {
 
-    const stack = createNativeStackNavigator();
-
+    const Stack = createNativeStackNavigator();
+    
     const { user } = useAuth();
 
     return (
-        <stack.Navigator>
-            {
-                user == null || user == undefined ? (
-                    <stack.Screen name="login" component={LoginScreen} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
-                ) : (
-                    user?.login?.role?.role == "A" ? (
-                    <>
-                        <stack.Screen name="accessControll" component={UserAceessControllTabs} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
-                        <stack.Screen name="entercodedriver" component={EnterCodeDriver} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
-                        <stack.Screen name="entercodevehicle" component={EnterCodeInVehicle} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
-                        <stack.Screen name="qrcoderead" component={QRread} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
-                        <stack.Screen name="enterconcluited" component={EnterCodeConcluited} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
-                        <stack.Screen name="recentaccessentry" component={RecentAccessEntry} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
-                        <stack.Screen name="accessentry" component={AccessEntry} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
-                        <stack.Screen name="accessehistoryentrance" component={AccesHistory} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
-                        <stack.Screen name="userguidea" component={UserGuide} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
-                        <stack.Screen name="policyterma" component={PrivaciesAndTerms} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
-                        <stack.Screen name="checklist" component={CheckList} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
-                    </>
-                ) : user?.login?.role?.role == "B" ? (
-                    <>
-                        <stack.Screen name="refuelControll" component={UserRefuelTabs} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
-                        <stack.Screen name="entersupplie" component={Supplie} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
-                        <stack.Screen name="enteroccorrency" component={Ocorrency} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
-                        <stack.Screen name="userguideb" component={UserGuide} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
-                        <stack.Screen name="policytermb" component={PrivaciesAndTerms} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
-                        
-                    </>
-                ) : (
-                    <stack.Screen name="login" component={LoginScreen} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
-                )
+        
+        <Stack.Navigator initialRouteName={user ? (user?.login?.role?.role?.toLowerCase() === "a" ? "accessControll" : "refuelControll") : "login"}>
+        {
+            !user ? (
+            <Stack.Screen name="login" component={LoginScreen} options={{ headerShown: false }} />
+            ) : user?.login?.role?.role?.toLowerCase() === "a" ? (
+            <>
+                <Stack.Screen name="accessControll" component={UserAceessControllTabs} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
+                <Stack.Screen name="entercodedriver" component={EnterCodeDriver} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
+                <Stack.Screen name="entercodevehicle" component={EnterCodeInVehicle} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
+                <Stack.Screen name="qrcoderead" component={QRread} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
+                <Stack.Screen name="enterconcluited" component={EnterCodeConcluited} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
+                <Stack.Screen name="recentaccessentry" component={RecentAccessEntry} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
+                <Stack.Screen name="accessentry" component={AccessEntry} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
+                <Stack.Screen name="accessehistoryentrance" component={AccesHistory} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
+                <Stack.Screen name="userguidea" component={UserGuide} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
+                <Stack.Screen name="policyterma" component={PrivaciesAndTerms} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
+                <Stack.Screen name="checklist" component={CheckList} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
+            </>
+            ) : user?.login?.role?.role?.toLowerCase() === "b" ? (
+            <>
+                <Stack.Screen name="refuelControll" component={UserRefuelTabs} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
+                <Stack.Screen name="entersupplie" component={Supplie} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
+                <Stack.Screen name="enteroccorrency" component={Ocorrency} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
+                <Stack.Screen name="userguideb" component={UserGuide} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
+                <Stack.Screen name="policytermb" component={PrivaciesAndTerms} options={{ headerShown: false, statusBarStyle: "dark", headerTransparent: true }} />
+            </>
+            ) : (
+            <Stack.Screen name="login" component={LoginScreen} options={{ headerShown: false }} />
             )
-                
-            }
-        </stack.Navigator>
+        }
+        </Stack.Navigator>
     )
 
 }
