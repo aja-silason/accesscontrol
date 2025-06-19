@@ -12,9 +12,9 @@ export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [textBtn, setTextBtn] = useState("Entrar");
-
   
   const { login, isLoading } = useAuth();
+
   
   /*if (user) {
     return (
@@ -38,8 +38,8 @@ export default function LoginScreen() {
         <View style={Style.loginData}>
 
           <View>
-            <Text style={Style.texth1}>Acessar conta</Text>
-            <Text style={Style.textp}>Por favor! Preencha o formulário com suas credenciais.</Text>
+            <Text style={[Style.texth1, {textAlign: "center"}]}>Acessar conta</Text>
+            <Text style={[Style.textp, {textAlign: "center"}]}>Por favor! Preencha o formulário com suas credenciais.</Text>
           </View>
 
           <KeyboardAwareScrollView
@@ -53,8 +53,8 @@ export default function LoginScreen() {
 
             <View style={Style.containerInput} >
               <InputContainer style={{ width: "100%" }}>
-                <InputContainer.Field>E-mail</InputContainer.Field>
-                <InputContainer.Input place="seu@email.com" onChangeText={(email: any) => setEmail(email)} value={email} />
+                <InputContainer.Field>Telefone</InputContainer.Field>
+                <InputContainer.Input place="Telefone" onChangeText={(email: any) => setEmail(email)} value={email} />
               </InputContainer>
 
               <InputContainer>

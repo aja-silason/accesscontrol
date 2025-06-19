@@ -38,11 +38,11 @@ const Select: React.FC<SelectProps> = ({ options, selectedValue, onSelect, place
       </TouchableOpacity>
 
       {isExpanded && (
-        <View style={styles.optionsContainer}>
+        <View style={[styles.optionsContainer, {backgroundColor: Colors.white[200]}]}>
           
           {
             !options ? (
-              <View style={{alignItems: 'center'}}>
+              <View style={{alignItems: 'center', marginVertical: 10}}>
                 <Loading/>
               </View>
             ) : (
@@ -52,7 +52,7 @@ const Select: React.FC<SelectProps> = ({ options, selectedValue, onSelect, place
                     keyExtractor={(item) => item.value}
                     renderItem={({ item }) => (
                       <TouchableOpacity
-                        style={styles.option}
+                        style={[styles.option, {backgroundColor: Colors.white[200]}]}
                         onPress={() => handleSelect(item.value)}
                       >
                         <Text style={styles.optionText}>{item.label}</Text>

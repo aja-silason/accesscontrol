@@ -53,6 +53,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
       const { data } = await axios.post(`${API_URL}user/login`, payload);
 
+        Alert.alert("Aviso", "Acesso não permitido");
+
       if (data?.response?.status == 400) {
         Alert.alert("Aviso", "Acesso não permitido");
       }
