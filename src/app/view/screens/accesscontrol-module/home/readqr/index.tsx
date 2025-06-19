@@ -3,14 +3,11 @@ import { Alert, Image, Text, View } from "react-native"
 import { ContainerLessMenuLessGradiente } from "../../../../components/container"
 import { RadioCards } from "@/app/view/components/cards/Cards"
 import { style } from "./style";
-import { CameraPermission } from "@/app/view/components/camera/camerapermission";
-import { Button, ButtonIn } from "@/app/view/components/button";
+import { Button } from "@/app/view/components/button";
 import { CameraView, useCameraPermissions } from "expo-camera";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import CheckedIconSvg from "@/app/view/components/svg/CheckedSvg";
 import { routing } from "@/app/viewmodel/services/Navegation";
-import { ModalContext } from "@/app/viewmodel/context/ModalContext";
-import { useGetDatas } from "@/app/viewmodel/hooks/useGetDatas";
 import { useAuth } from "@/app/viewmodel/context/AuthContext";
 import axios from "axios";
 import { API_URL } from "@/app/viewmodel/utils/server/enpoint";
@@ -56,7 +53,7 @@ export default function QRread(){
                 }
 
                 try {
-                    const {data} = await axios.post(`${API_URL}check-driver`, payload, {
+                    const {data} = await axios?.post(`${API_URL}check-driver`, payload, {
                         headers: {
                         Authorization: `Bearer ${user.authorizationToken}`
                         }
@@ -112,9 +109,9 @@ export default function QRread(){
     
                     try {
                         
-                        const {data} = await axios.post(`${API_URL}check-transport`, payloadVehicle, {
+                        const {data} = await axios?.post(`${API_URL}check-transport`, payloadVehicle, {
                             headers: {
-                            Authorization: `Bearer ${user.authorizationToken}`
+                            Authorization: `Bearer ${user?.authorizationToken}`
                             }
                         });
     
@@ -152,7 +149,7 @@ export default function QRread(){
     }
 
     const getDataVehicle = async (data: any)  => {
-        await AsyncStorage?.setItem('entranceData', JSON.stringify(data));
+        await AsyncStorage?.setItem('entranceData', JSON?.stringify(data));
         setVehicle(data)
         setScan(null);
         setFlag(STATE.concluited);

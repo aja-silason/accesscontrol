@@ -24,7 +24,7 @@ export default function RecentAccessEntry() {
                     keyExtractor={(item: any) => item.id}
                     renderItem={({ item }) => (
                         <TouchableOpacity onPress={() => navigate.navigate("accessentry", { payload: item })} activeOpacity={0.9}>
-                            <CardList brandOfCar={item?.transports?.brand} date={item.createdAt} distribuitor={item?.distributor?.distribuitor} typeOfCar={item.transports?.model} />
+                            <CardList brandOfCar={item?.transports?.brand} date={item?.createdAt} distribuitor={item?.distributor?.distribuitor} typeOfCar={item.transports?.model} />
                         </TouchableOpacity>
                     )
                     } showsVerticalScrollIndicator={false}

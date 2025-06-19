@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { API_URL } from '@/app/viewmodel/utils/server/enpoint';
 import { Alert, Platform } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 type AuthContextProps = {
   user: any
@@ -22,6 +23,8 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const navigate: any = useNavigation()
 
 
   const login = async (email: any, password: any) => {
@@ -54,13 +57,20 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         Alert.alert("Aviso", "Acesso não permitido");
       }
       const user = data;
-      await AsyncStorage.setItem('user', JSON.stringify(user));
+      await AsyncStorage?.setItem('user', JSON.stringify(user));
+
+      if (user?.login?.role?.role == "A") {
+        navigate.navigate("accessControll");
+      } else if (user?.login?.role?.role == "B") {
+        navigate.navigate("refuelControll")
+      }
+
       setUser(user);
       setIsLoading(false);
 
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        if (error.response) {
+        if (error?.response) {
           if (error?.code?.includes("ERR_BAD_REQUEST")) {
             if (Platform.OS == "web") alert("Alguma coisa correu mal, estamos resolvendo por você");
             Alert?.alert("Aviso", "Alguma coisa correu mal, estamos resolvendo por você");

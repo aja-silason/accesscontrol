@@ -4,7 +4,6 @@ import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
 import { useGetDatas } from "../useGetDatas";
 import { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
 
 type typePayload = {
     distribuitorId: string,
@@ -21,14 +20,13 @@ type typePayload = {
 
 export const useCreateSupplie = () => {
 
+    /*const { user, isLoading: principalloading } = useAuth()
+    
     const [distribuitor, setDistribuitor] = useState<string | null>();
-    const [tanks, setTanks] = useState<string | null>();
     const [product, setProduct] = useState<string | null>();
     const [isLoading, setIsloading] = useState(false);
 
     const [datas, setDatas] = useState<typePayload>({ distribuitorId: "", driverCode: "", observations: "", plataformId: "", productId: "", quantity: "", vehicleCode: "", tanksId: "" })
-
-    const { user, isLoading: principalloading } = useAuth()
 
     const { data: option } = useGetDatas(principalloading || !user ? null : "distribuitor");
     const { data: option2 } = useGetDatas(principalloading || !user ? null : "product");
@@ -75,9 +73,7 @@ export const useCreateSupplie = () => {
                 }
             }
 
-            console.log(JSON.stringify(payload, null, 2))
-
-            await axios.post(`${API_URL}supply`, payload, {
+            await axios?.post(`${API_URL}supply`, payload, {
                 headers: {
                     Authorization: `Bearer ${user?.authorizationToken}`
                 }
@@ -143,8 +139,93 @@ export const useCreateSupplie = () => {
         }
 
 
+    }*/
+
+        const {user} = useAuth()
+
+    const [dataPayload, setDataPayload] = useState<any>({distribuitor: "", eigth: "", tanks: "", searchDriver: "", searchVehicle: ""})
+
+    const handleChange = (name: string, value: string) => {
+        setDataPayload((prevState: any) => ({
+            ...prevState, [name]: value
+        }))
     }
 
-    return { datas, handleSubmit, product, distribuitor, setProduct, setDistribuitor, distribuitorData, productData, handleChange, isLoading }
+    const [isLoading, setIsloading] = useState(false);
+ 
+    const {data: endpointdistribuitor} = useGetDatas("distribuitor");
+    const {data: endpointproduct} = useGetDatas("product");
+    const {data: endpointtank}: any = useGetDatas(`platform/key/${user?.login?.plataform?.id}`);
+
+    const distribuitorData = endpointdistribuitor?.map((item:any) => ({label: item?.distribuitor, value: item?.id, id: item?.id}));
+
+    const productData = endpointproduct?.map((item:any) => ({label: item?.product, value: item?.id, id: item?.id}));
+
+    const tankData = endpointtank?.tanks?.map((item:any) => ({label: item?.tank, value: item?.id, id: item?.id}));
+
+      const handleSubmit = async () => {
+          setIsloading(true)
+
+          const payload = {
+              distribuitorId: dataPayload?.distribuitor,
+              quantity: +dataPayload?.eigth, 
+              plataformId: user?.login?.plataform?.id,
+              productId: dataPayload?.product,
+              driverCode: dataPayload?.searchDriver?.toUpperCase(),
+              vehicleCode: dataPayload?.searchVehicle?.toUpperCase(),
+              observations: dataPayload?.observation,
+              tanksId: dataPayload?.tanks
+
+          }
+
+          try {
+
+
+            const isValidate: Array<keyof typePayload> = ["distribuitorId", "driverCode", "observations", "plataformId", "productId", "quantity", "vehicleCode", "tanksId"];
+            for(const key of isValidate){
+                if(payload[key] == undefined ){
+                    setIsloading(false);
+                    return Alert.alert("Notificação", `Verifique o formulário ${key}`);
+                }
+            }
+
+            const {data} = await axios.post(`${API_URL}supply`, payload, {
+                headers: {
+                    Authorization: `Bearer ${user?.authorizationToken}`
+                }
+            })
+
+            console.log("Olha o data", data);
+
+          Alert.alert("Notificação", "Abastecimento registrado.", [
+            {
+                text: "Ok",
+                onPress: () => {}
+            }
+          ]);
+
+          setDataPayload({distribuitor: "", eigth: "", tanks: "", searchDriver: "", searchVehicle: ""})
+
+          setIsloading(true);
+
+        } catch (error: any) {
+
+            if(error?.response?.data?.message?.includes("Quantidade insuficiente")){
+                Alert.alert("Notificação", `Quantidade insuficiente no reservatório selecionado.`);
+            }
+
+            console.log(error?.response?.data)
+            if(error?.response?.data?.statusCode == 422){
+                Alert.alert("Notificação", "Verifique as credênciais e tente novamente");
+            }
+
+        }finally{
+            setIsloading(false);
+        }
+
+      }
+
+    //return { datas, handleSubmit, productData, distribuitorData, setProduct, setDistribuitor, distribuitorData, productData, handleChange, isLoading }
+    return { dataPayload, handleSubmit, productData, distribuitorData, handleChange, isLoading }
 
 }

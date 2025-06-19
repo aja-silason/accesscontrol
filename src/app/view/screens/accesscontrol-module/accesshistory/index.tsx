@@ -24,7 +24,7 @@ export default function AccesHistory() {
                 {
                     distribuitor == undefined || distribuitor == null || distribuitor?.length < 0 ? (
 
-                        <View style={{ justifyContent: "center", alignItems: "center", flex: 1, height: "100%" }}>
+                        <View style={{ justifyContent: "center", alignItems: "center"}}>
                             <LoadingCode />
                         </View>
 

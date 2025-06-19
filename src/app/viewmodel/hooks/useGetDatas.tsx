@@ -9,6 +9,8 @@ export const useGetDatas = (endpoint: string | any) => {
 
     //const [data, setdata] = useState([]);
 
+    //if(!endpoint) return {data: null, error: null, status: null}
+
     const { user } = useAuth();
 
     const fetcher = async (url: string) => {

@@ -32,9 +32,9 @@ export const useCreateOccurrency = () => {
 
     const distribuitorData: any = option?.map((item: any) => ({ label: item?.distribuitor, value: item?.id, id: item?.id }));
 
-    const driverdata: any = driver?.filter((data: any) => data?.authorizationCode?.toLowerCase()?.includes(datas?.driverId?.toLocaleLowerCase()))
+    const driverdata: any = driver?.filter((data: any) => data?.authorizationCode?.toLowerCase()?.includes(datas?.driverId?.toLowerCase()))
 
-    const vehicledata: any = vehicle?.filter((data: any) => data?.authorizationCode?.toLowerCase()?.includes(datas?.supervisorId.toLocaleLowerCase()))
+    const vehicledata: any = vehicle?.filter((data: any) => data?.authorizationCode?.toLowerCase()?.includes(datas?.supervisorId?.toLowerCase()))
 
     const handleChange = (name: string, value: string) => {
         setDatas((prevState: any) => ({ ...prevState, [name]: value }))

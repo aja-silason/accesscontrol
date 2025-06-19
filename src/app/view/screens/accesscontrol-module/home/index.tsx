@@ -60,7 +60,7 @@ export default function Home() {
                                     <View>
                                         {
                                             <TouchableOpacity onPress={() => navigate?.navigate("recentaccessentry", { payload: item })} activeOpacity={0.8}>
-                                                <CardList brandOfCar={item?.adress} date={item?.createdAt} distribuitor={item?.plataform} matricula={item?.owner} portOfCar={item.owner} typeOfCar={item.owner} key={index}/>
+                                                <CardList brandOfCar={item?.adress} date={item?.createdAt} distribuitor={item?.plataform} matricula={item?.owner} portOfCar={item?.owner} typeOfCar={item?.owner} key={index}/>
                                             </TouchableOpacity>
                                         }
                                     </View>

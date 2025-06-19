@@ -38,11 +38,11 @@ export const useCreatevehicleEntrance = () => {
       setValuesVehicle(newValues);
   
       if (!text && index > 0) {
-          const inputRef = inputRefsVehicle.current;
+          const inputRef = inputRefsVehicle?.current;
           inputRef[index - 1].focus();
           setFocusedIndexVehicle(index - 1);
-      } else if (text && index < valuesVehicle.length - 1) {
-          const inputRef = inputRefsVehicle.current;
+      } else if (text && index < valuesVehicle?.length - 1) {
+          const inputRef = inputRefsVehicle?.current;
           inputRef[index + 1].focus();
           setFocusedIndexVehicle(index + 1);
       }
@@ -57,15 +57,15 @@ export const useCreatevehicleEntrance = () => {
   }
 
     const calculateCodeVehicle = () => {
-      const newCode = valuesVehicle.map((item: any) => item.value).join('');
-      return newCode.length > 4 ? setNewCode(newCode) : undefined;
+      const newCode = valuesVehicle?.map((item: any) => item.value)?.join('');
+      return newCode?.length > 4 ? setNewCode(newCode) : undefined;
     };
 
     useEffect(() => {
       
       (async () => {
-        const code = await AsyncStorage.getItem("codedriver");
-        const parsedCode = code && JSON.parse(code);
+        const code = await AsyncStorage?.getItem("codedriver");
+        const parsedCode = code && JSON?.parse(code);
         setCodeDriver(parsedCode);
 
       } )()

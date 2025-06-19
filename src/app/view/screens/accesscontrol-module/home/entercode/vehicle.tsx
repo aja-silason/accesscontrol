@@ -23,7 +23,7 @@ export default function EnterCodeInVehicle(){
                         </View>
                         <View style={style.inputContainer}>
         
-                            {valuesVehicle.map((value, index) => (
+                            {valuesVehicle?.map((value, index) => (
                                 <OneDigiteInput key={index} value={value?.value} onChangeText={(text: any) => handleInputChangeVehicle(index,  text)} onFocus={() => setFocusedIndexVehicle(index)} ref={(ref: any) => (inputRefsVehicle.current![index] = ref)} wrong={wrong}/>
                             ))}
         

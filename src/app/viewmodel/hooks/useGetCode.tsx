@@ -19,19 +19,19 @@ export const useGetDriverCode = async () => {
       setValues(newValues);
   
       if (!text && index > 0) {
-          const inputRef = inputRefs.current; // Type assertion
+          const inputRef = inputRefs?.current; // Type assertion
           inputRef[index - 1].focus();
           setFocusedIndex(index - 1);
-      } else if (text && index < values.length - 1) {
-          const inputRef = inputRefs.current; // Type assertion
+      } else if (text && index < values?.length - 1) {
+          const inputRef = inputRefs?.current; // Type assertion
           inputRef[index + 1].focus();
           setFocusedIndex(index + 1);
       }
   };
 
     const calculateCode = () => {
-      const newCode = values.map((item) => item.value).join('');
-      return newCode.length > 4 ? newCode : undefined;
+      const newCode = values.map((item) => item?.value).join('');
+      return newCode?.length > 4 ? newCode : undefined;
     };
   
     useEffect(() => {
