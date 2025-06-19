@@ -15,15 +15,6 @@ export default function LoginScreen() {
   
   const { login, isLoading } = useAuth();
 
-  
-  /*if (user) {
-    return (
-      <View style={{ backgroundColor: Colors.white[200] ,flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <LoadingCode />
-      </View>
-    )
-  }*/
-
   const handleClick = async () => {
     await login(email, password);
   }
